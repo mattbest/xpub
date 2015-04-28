@@ -7,10 +7,11 @@
         {
             "key": "name",
             "text": "Name of study?",
-            "info": "Your study name should only consist of alphanumeric characters. Example: `Pig Chewing Experiment`.",
+            "info": "Your study name should only consist of alphanumeric characters and underscores.",
+            "example": "pig_chewing_study",
             "type": "open",
             "enum": [],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": "\\w{3}"
@@ -18,23 +19,25 @@
         {
             "key": "desc",
             "text": "Description of study?",
-            "info": "Please provide a short description of the purpose and aim of this study.",
+            "info": "Provide a short description of the purpose and aim of this study.",
+            "example": "A study that looks at how pigs chew stuff.",
             "type": "open",
             "enum": [],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": "\\w{3}"
         },
         {
             "key": "pi",
-            "text": "Name of Principal Investigator?",
-            "info": "",
+            "text": "Name of PI?",
+            "info": "Specify the Principal Investigator for this study.",
+            "example": "Callum Ross",
             "type": "enum_open",
             "enum": [
                 "Callum Ross"
             ],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": "^\\d$"
@@ -42,13 +45,14 @@
         {
             "key": "leader",
             "text": "Name of study leader?",
-            "info": "The lab member most responsible for conducting this study.",
+            "info": "Specify the lab member most responsible for conducting this study.",
+            "example": "Kazutaka Takashi",
             "type": "enum_open",
             "enum": [
                 "Callum Ross",
                 "Kazutaka Takashi"
             ],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": "^\\d$"
@@ -57,20 +61,22 @@
             "key": "meta_public",
             "text": "Metadata for this study is public?",
             "info": "Can the metadata for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "example": true,
             "type": "bool",
             "enum": [],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": ""
         },
         {
             "key": "data_public",
-            "text": "Data for this study is public? (y|n)",
+            "text": "Data for this study is public?",
             "info": "Can the data files for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "example": false,
             "type": "bool",
             "enum": [],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": ""
@@ -79,9 +85,10 @@
             "key": "notes",
             "text": "Additional notes or comments? (hit return for none)",
             "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
+            "example": "See `http://github.com/rcc-uchicago/xpub` for more info.",
             "type": "open",
             "enum": [],
-            "dest": [
+            "store": [
                 "xromm"
             ],
             "regex": "\\w?"
