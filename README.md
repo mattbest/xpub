@@ -1,4 +1,6 @@
-# xpub
+              / 
+    )( /) (/ () 
+      /       
 
 *A command-line client for the `uc-xromm` project.*
 
