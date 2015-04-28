@@ -1,0 +1,90 @@
+{
+    "key": "study",
+    "author": "J. Voigt",
+    "version": "0.0.1",
+    "description": "prompts to present when creating a new study",
+    "prompts": [
+        {
+            "key": "name",
+            "text": "Name of study?",
+            "info": "Your study name should only consist of alphanumeric characters. Example: `Pig Chewing Experiment`.",
+            "type": "open",
+            "enum": [],
+            "dest": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "desc",
+            "text": "Description of study?",
+            "info": "Please provide a short description of the purpose and aim of this study.",
+            "type": "open",
+            "enum": [],
+            "dest": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "pi",
+            "text": "Name of Principal Investigator?",
+            "info": "",
+            "type": "enum_open",
+            "enum": [
+                "Callum Ross"
+            ],
+            "dest": [
+                "xromm"
+            ],
+            "regex": "^\\d$"
+        },
+        {
+            "key": "leader",
+            "text": "Name of study leader?",
+            "info": "The lab member most responsible for conducting this study.",
+            "type": "enum_open",
+            "enum": [
+                "Callum Ross",
+                "Kazutaka Takashi"
+            ],
+            "dest": [
+                "xromm"
+            ],
+            "regex": "^\\d$"
+        },
+        {
+            "key": "meta_public",
+            "text": "Metadata for this study is public?",
+            "info": "Can the metadata for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "type": "bool",
+            "enum": [],
+            "dest": [
+                "xromm"
+            ],
+            "regex": ""
+        },
+        {
+            "key": "data_public",
+            "text": "Data for this study is public? (y|n)",
+            "info": "Can the data files for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "type": "bool",
+            "enum": [],
+            "dest": [
+                "xromm"
+            ],
+            "regex": ""
+        },
+        {
+            "key": "notes",
+            "text": "Additional notes or comments? (hit return for none)",
+            "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
+            "type": "open",
+            "enum": [],
+            "dest": [
+                "xromm"
+            ],
+            "regex": "\\w?"
+        }
+    ]
+}
