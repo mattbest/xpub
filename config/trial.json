@@ -49,12 +49,12 @@
             "info": "Specify the date this trial was conducted: YYYY-MM-DD.",
             "example": "2015-04-28",
             "require": true,
-            "type": "open",
+            "type": "date",
             "enum": [],
             "store": [
                 "xromm"
             ],
-            "regex": "^20\\d\\d-[0-2]\\d-[0-3]\\d$"
+            "regex": ""
         },
         {
             "key": "notes",

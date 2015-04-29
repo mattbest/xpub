@@ -34,6 +34,15 @@ class Prompt:
                           a user specified value
             `num`  - a numeric value
 
+        The value of `p['store']` should be an array of string values,
+        where the string values indicate the backend datastores to 
+        which a given key/value pair should be persisted (`xromm` and/or
+        `ross_db`).  For example, if you're prompting for something 
+        exclusively for the xromm portal's database, you'd set
+        `p['store'] = ['xromm']`.  If you're prompting for something
+        recognized by both the xromm db and the internal database
+        used by the Ross Lab, you'd set `p['store'] = ['xromm', 'ross_db']`.
+
         """
         # ensure prompt dict has all the necessary keys
         for key in 'key text info example require type store'.split(' '):
@@ -58,11 +67,14 @@ class Prompt:
             msg += ', '.join(type_options)
             raise ValueError(msg)
 
+        self.yyyy_mm_dd = re.compile(r'^20\d\d-[0-2]\d-[0-3]\d$')
         self.__dict__.update(**p)
+
 
     def __call__(self, verbose=False, testing=False):
         """
-        Run the prompt and return input response.
+        Run the prompt and return input response (or the supplied
+        prompt example if testing).
 
         """
         if testing:
@@ -77,40 +89,20 @@ class Prompt:
         if self.type == 'bool':
             text += " (`y` or `n`)"
 
+        # for date inputs, indicate required date format
+        if self.type == 'date':
+            text += " (YYYY-MM-DD)"
+
         print("\n{}\n".format(text))
 
         # if prompt has enumerated options, enumerate them
         if self.enum:
-            if self.type == 'enum_open':
-                self.enum.append('Specify other')   # permit other input
-
-            for (i, opt) in enumerate(self.enum):
-                print("\t{} - {}".format(i, opt))
-            print
-            resp = self.get_input()
-
-            try:
-                choice = int(resp)
-            except ValueError:
-                if self.type == 'enum_open':
-                    return resp     # assume they meant to input an alternative
-                else:
-                    choice = -1     # try again!
-
-            if 0 <= choice < len(self.enum):
-                result = self.enum[choice]
-                if result == 'Specify other':
-                    print("\n{}\n".format(text))
-                    resp = self.get_input()
-                return resp
-
-            print("Please specify the number of one of the listed options!")
-            return self.__call__(verbose, testing)
+            return self.enumerate_options()
 
         # ... otherwise, for non-enumerated prompt types ...
         resp = self.get_input()
 
-        # for booleans convert y/n responses to t/f
+        # for booleans, convert y/n responses to t/f
         if self.type == 'bool':
             if resp == 'y':
                 return True
@@ -120,7 +112,12 @@ class Prompt:
                 print("\nPlease specify `y` for yes or `n` for no!")
                 return self.__call__(verbose, testing)
 
-        # check response against supplied regex
+        # for dates, check date format
+        if self.type == 'date' and not self.valid_date(resp):
+            print("\nInvalid date input. Please use `YYYY-MM-DD` format.")
+            return self.__call__(verbose, testing)
+
+        # finally, check response against any supplied regex pattern
         if self.regex:
             rgx = re.compile(self.regex)
             if rgx.match(resp):
@@ -130,6 +127,7 @@ class Prompt:
 
         return resp
 
+
     def get_input(self):
         """
         Prompt for raw input.
@@ -137,6 +135,45 @@ class Prompt:
         """
         return raw_input('>>> ')
     
+
+    def valid_date(self, input):
+        """
+        Check that input is in valid date format (YYYY-MM-DD).
+
+        """
+        return self.yyyy_mm_dd.match(input)
+
+    def enumerate_options(self):
+        """
+        Enumerate provided options for user to select.
+
+        """
+        if self.type == 'enum_open':
+            self.enum.append('Specify other')   # permit other input
+
+        for (i, opt) in enumerate(self.enum):
+            print("\t{} - {}".format(i, opt))
+        print
+        resp = self.get_input()
+
+        try:
+            choice = int(resp)
+        except ValueError:
+            if self.type == 'enum_open':
+                return resp     # assume they meant to input an alternative
+            else:
+                choice = -1     # try again!
+
+        if 0 <= choice < len(self.enum):
+            result = self.enum[choice]
+            if result == 'Specify other':
+                print("\n{}\n".format(text))
+                resp = self.get_input()
+            return resp
+
+        print("Please specify the number of one of the listed options!")
+        return self.__call__(verbose, testing)
+
 
 class Prompter:
     """
