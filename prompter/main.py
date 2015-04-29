@@ -8,12 +8,37 @@ class Prompt:
     
     """
     def __init__(self, p): 
+        """
+        Initialize a Prompt object.
 
+        `p` should be dict with the relevant keys needed for prompting:
+        
+          `key`     - key name used when sending the captured input value
+          `text`    - text presented when prompting for input
+          `info`    - additional info presented with `--verbose` switch
+          `example` - example input (used when testing)
+          `type`    - indicating type of prompt
+          `store`   - array of backend persistence targets
+          `regex`   - optional regex pattern to validate input
+
+        The value of `p['type']` should be a string indicating the 
+        type of the input value expected. The type options are ...
+            
+             TYPE  - EXPECTED INPUT VALUE
+            `bool` - boolean value (to prompt for `yes` or `no` input)
+            `open` - open-ended string
+            `enum` - a value from a fixed list of enumerated options
+            `enum_open` - a value from a list of enumerated options or
+                          a user specified value
+
+        """
+        # ensure prompt dict has all the necessary keys
         for key in 'key text info example type store'.split(' '):
             if not (key in p):
                 raise KeyError('prompt dict is missing `{}` key!'.format(key))
 
-        store_options = ['xromm', 'ross_db']
+        # check that values in `store` array are valid
+        store_options = ['xromm', 'ross_db']    
         for s in p['store']:
             if not (s in store_options):
                 msg = 'store={} | '.format(p['store'])
@@ -21,6 +46,7 @@ class Prompt:
                 msg += ', '.join(store_options)
                 raise ValueError(msg)
 
+        # check that `type` value is valid
         type_options = ['bool', 'open', 'enum', 'enum_open']
         type = p['type']
         if not (type in type_options):
@@ -109,14 +135,13 @@ class Prompt:
         return raw_input('>>> ')
     
 
-
 class Prompter:
     """
     Prompters are used to prompt for metadata given a resource
     config file.
     
     """
-    def __init__(self, path, verbose=False, testing=False):
+    def __init__(self, config, verbose=False, testing=False):
         """
         Initializes a Prompter given a path to a resource config file.
 
@@ -125,7 +150,7 @@ class Prompter:
         self.verbose = verbose              # true for extra prompt info
 
         # load the JSON-formatted resource config file specified in path
-        resource = json.load(open(path))
+        resource = json.load(open(config))
 
         # input will be collected for this resource under `data` key
         self.results = {
@@ -138,7 +163,7 @@ class Prompter:
         try:
             self.prompts = [Prompt(p) for p in resource['prompts']]
         except ValueError, KeyError:
-            print "\nError initializing prompt dicts in {}!\n".format(path)
+            print "\nError initializing prompt dicts in {}!\n".format(config)
             raise
 
     def __call__(self):

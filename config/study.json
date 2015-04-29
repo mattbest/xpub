@@ -60,7 +60,7 @@
         {
             "key": "meta_public",
             "text": "Metadata for this study is public?",
-            "info": "Can the metadata for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "info": "Can the metadata for this study be made publicly available?", 
             "example": true,
             "type": "bool",
             "enum": [],
@@ -72,7 +72,7 @@
         {
             "key": "data_public",
             "text": "Data for this study is public?",
-            "info": "Can the data files for this study be made publicly available? Use `y` for yes or `n` for no.",
+            "info": "Can the data files for this study be made publicly available?",
             "example": false,
             "type": "bool",
             "enum": [],
