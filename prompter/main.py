@@ -172,7 +172,7 @@ class Prompter:
         
         """
         for prompt in self.prompts:
-            result = prompt()
+            result = prompt(testing=self.testing)
             self.set(prompt.key, result)
 
     def __str__(self):

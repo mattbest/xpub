@@ -1,5 +1,6 @@
+import os
 from nose.tools import raises
-from .main import Prompt
+from .main import Prompt, Prompter
 
 # valid prompt dicts of various types for testing
 valid_prompt_dicts = {
@@ -87,7 +88,6 @@ def test_missing_key():
     }
     Prompt(d)                   # should raise KeyError
     
-
 @raises(ValueError)
 def test_invalid_type():
     '''Testing for invalid prompt type: ValueError expected'''
@@ -114,3 +114,49 @@ def test_invalid_store():
     }
     Prompt(d)                   # should raise ValueError
     
+def test_prompter():
+    '''
+    Testing a Prompter instance.
+
+    Note that when testing a prompter, the returned input values
+    are just the example values given in the specified config file,
+    For example, if prompting for a new study resource we'd use
+    the `config/study.json` file to configure the prompter:
+
+        {
+            "key": "name",
+            "text": "Name of study?",
+            "example": "pig_chewing_study",     # input value to return
+                                                # when testing
+            ...
+        },
+        {
+            "key": "leader",
+            "text": "Name of study leader?",
+            "example": "Kazutaka Takashi",      # input value when testing
+            ...
+        },
+
+    '''
+    # this is the expected result based on the example inputs specified 
+    # in our `study.json` config file
+    expected = {
+        "data": {
+            "name": "pig_chewing_study", 
+            "notes": "See `http://github.com/rcc-uchicago/xpub` for more info.", 
+            "data_public": False, 
+            "meta_public": True, 
+            "pi": "Callum Ross", 
+            "leader": "Kazutaka Takashi", 
+            "desc": "A study that looks at how pigs chew stuff."
+        }, 
+        "version": "0.0.1", 
+        "resource": "study"
+    }
+
+    d = os.path.dirname(os.path.realpath(__file__))
+    local_config_path = os.path.join(d, '..', 'config', 'study.json')
+    CONFIG_DIR = os.environ.get('XROMM_CONFIG', local_config_path)
+    prompt = Prompter(CONFIG_DIR, testing=True)
+    prompt()
+    assert prompt.results == expected
