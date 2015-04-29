@@ -32,7 +32,7 @@ class Prompt:
             `enum` - a value from a fixed list of enumerated options
             `enum_open` - a value from a list of enumerated options or
                           a user specified value
-            `num`  - a numeric value
+            `number` - a numeric value
 
         The value of `p['store']` should be an array of string values,
         where the string values indicate the backend datastores to 
@@ -59,7 +59,7 @@ class Prompt:
                 raise ValueError(msg)
 
         # check that `type` value is valid
-        type_options = ['bool', 'date', 'open', 'enum', 'enum_open', 'num']
+        type_options = ['bool', 'date', 'open', 'enum', 'enum_open', 'number']
         type = p['type']
         if not (type in type_options):
             msg = 'type={} | '.format(type)
@@ -67,7 +67,10 @@ class Prompt:
             msg += ', '.join(type_options)
             raise ValueError(msg)
 
+        # regex for checking date format
         self.yyyy_mm_dd = re.compile(r'^20\d\d-[0-2]\d-[0-3]\d$')
+
+        # make the dict keys of `p` accessible as properties: `self.name`
         self.__dict__.update(**p)
 
 
@@ -102,7 +105,11 @@ class Prompt:
         # ... otherwise, for non-enumerated prompt types ...
         resp = self.get_input()
 
-        # for booleans, convert y/n responses to t/f
+        # return null response if no input given and not required
+        if not(self.require) and not(resp):
+            return None
+
+        # for booleans, convert y/n response to t/f
         if self.type == 'bool':
             if resp == 'y':
                 return True
@@ -112,7 +119,14 @@ class Prompt:
                 print("\nPlease specify `y` for yes or `n` for no!")
                 return self.__call__(verbose, testing)
 
-        # for dates, check date format
+        # for numbers, convert response to a number (int or float)
+        if self.type == 'number':
+            try:
+                return self.to_number(resp)
+            except ValueError:
+                print("\nInvalid numeric input. Please reenter value")
+                return self.__call__(verbose, testing)
+
         if self.type == 'date' and not self.valid_date(resp):
             print("\nInvalid date input. Please use `YYYY-MM-DD` format.")
             return self.__call__(verbose, testing)
@@ -136,12 +150,26 @@ class Prompt:
         return raw_input('>>> ')
     
 
+    def to_number(self, input):
+        """
+        Convert input to number.
+
+        """
+        try:
+            n = int(input)
+            return n
+        except ValueError:
+            n = float(input)
+            return n
+
+
     def valid_date(self, input):
         """
         Check that input is in valid date format (YYYY-MM-DD).
 
         """
         return self.yyyy_mm_dd.match(input)
+
 
     def enumerate_options(self):
         """

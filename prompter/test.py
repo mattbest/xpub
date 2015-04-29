@@ -51,6 +51,18 @@ valid_prompt_dicts = {
             "xromm"
         ],
         "regex": ""
+    },
+
+    # example of dict that prompts the user for numeric input
+    'years': {
+        "key": "years",
+        "text": "Age in years?",
+        "info": "",
+        "example": 5,
+        "require": True,
+        "type": "number",
+        "store": ["xromm"],
+        "regex": ""
     }
 }
 
@@ -73,6 +85,13 @@ def test_valid_prompts():
     prompt = Prompt(valid_prompt_dicts['public'])
     assert prompt.key is "meta_public"
     assert prompt.type is "bool"
+    assert prompt.require is True
+    result = prompt(testing=True)
+    assert result == prompt.example, "should return example when testing"
+
+    prompt = Prompt(valid_prompt_dicts['years'])
+    assert prompt.key is "years"
+    assert prompt.type is "number"
     assert prompt.require is True
     result = prompt(testing=True)
     assert result == prompt.example, "should return example when testing"
@@ -103,9 +122,9 @@ def test_invalid_type():
         "text": "What is the foo?",
         "info": "",
         "example": "bar",
+        "require": True,
         "type": "foo",          # `foo` is not a valid prompt type
-        "store": ["xromm"],
-        "require": True
+        "store": ["xromm"]
     }
     Prompt(d)                   # should raise ValueError
     
@@ -117,12 +136,52 @@ def test_invalid_store():
         "text": "Do you feel the foo?",
         "info": "",
         "example": True,
+        "require": True,
         "type": "bool",         # `bool` is a valid prompt type
-        "store": ["foo_db"],    # but `foo_db` is not a valid store value
-        "require": True
+        "store": ["foo_db"]     # but `foo_db` is not a valid store value
     }
     Prompt(d)                   # should raise ValueError
     
+def test_to_number():
+    """Testing to_number() conversion"""
+    d = {
+        "key": "years",
+        "text": "Age in years?",
+        "info": "",
+        "example": 5,
+        "require": True,
+        "type": "number",
+        "store": ["xromm"]
+    }
+    prompt = Prompt(d)
+
+    n = prompt.to_number('5')
+    assert n is 5, "convert to integer"
+
+    n = prompt.to_number('5.0')
+    assert n == 5.0, "convert to float (if integer conversion fails)"
+
+    n = prompt.to_number('+5.0')
+    assert n == 5.0, "numeric sign is permitted"
+
+    n = prompt.to_number('-5.0')
+    assert n == -5.0, "numeric sign is permitted"
+
+@raises(ValueError)
+def test_to_number_err():
+    """Testing to_number() conversion error"""
+    d = {
+        "key": "years",
+        "text": "Age in years?",
+        "info": "",
+        "example": 5,
+        "require": True,
+        "type": "number",
+        "store": ["xromm"]
+    }
+    prompt = Prompt(d)
+    prompt.to_number('foo')
+
 def test_prompter():
     '''
     Testing a Prompter instance.

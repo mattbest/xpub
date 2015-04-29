@@ -68,6 +68,45 @@
                 "xromm"
             ],
             "regex": "\\w?"
+        },
+        {
+            "key": "subject_name",
+            "text": "Name of research subject?",
+            "info": "Specify the name of the individual research subject.",
+            "example": "maxwell",
+            "require": false,
+            "type": "enum_open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "subject_genus_species",
+            "text": "Genus/species of research subject?",
+            "info": "Specify the genus and species of the individual research subject.",
+            "example": "gallus domesticus",
+            "require": false,
+            "type": "enum_open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "subject_grams",
+            "text": "Weight of research subject in grams?",
+            "info": "Specify the weight of the individual research subject in grams.",
+            "example": "300",
+            "require": false,
+            "type": "number",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": ""
         }
     ]
 }
