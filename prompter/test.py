@@ -11,6 +11,7 @@ valid_prompt_dicts = {
         "text": "Name of study?",
         "info": "Your study name should only consist of alphanumeric characters and underscores.",
         "example": "pig_chewing_study",
+        "require": True,
         "type": "open",
         "enum": [],
         "store": [
@@ -25,6 +26,7 @@ valid_prompt_dicts = {
         "text": "Name of study leader?",
         "info": "Specify the lab member most responsible for conducting this study.",
         "example": "Kazutaka Takashi",
+        "require": True,
         "type": "enum_open",
         "enum": [                   # list of options to be enumerated
             "Callum Ross",
@@ -42,6 +44,7 @@ valid_prompt_dicts = {
         "text": "Metadata for this study is public?",
         "info": "Can the metadata for this study be made publicly available?",
         "example": True,        # json value should be `true` (lowercase)
+        "require": True,
         "type": "bool",
         "enum": [],
         "store": [
@@ -56,18 +59,21 @@ def test_valid_prompts():
     prompt = Prompt(valid_prompt_dicts['study'])
     assert prompt.key is "name"
     assert prompt.type is "open"
+    assert prompt.require is True
     result = prompt(testing=True)
     assert result == "pig_chewing_study", "should return example when testing"
 
     prompt = Prompt(valid_prompt_dicts['leader'])
     assert prompt.key is "leader"
     assert prompt.type is "enum_open"
+    assert prompt.require is True
     result = prompt(testing=True)
     assert result == "Kazutaka Takashi", "should return example when testing"
 
     prompt = Prompt(valid_prompt_dicts['public'])
     assert prompt.key is "meta_public"
     assert prompt.type is "bool"
+    assert prompt.require is True
     result = prompt(testing=True)
     assert result == prompt.example, "should return example when testing"
 
@@ -84,7 +90,8 @@ def test_missing_key():
         "text": "Do you feel the foo?",
         "info": "",
         "type": "bool",
-        "store": ["xromm"]
+        "store": ["xromm"],
+        "require": True
     }
     Prompt(d)                   # should raise KeyError
     
@@ -97,7 +104,8 @@ def test_invalid_type():
         "info": "",
         "example": "bar",
         "type": "foo",          # `foo` is not a valid prompt type
-        "store": ["xromm"]
+        "store": ["xromm"],
+        "require": True
     }
     Prompt(d)                   # should raise ValueError
     
@@ -110,7 +118,8 @@ def test_invalid_store():
         "info": "",
         "example": True,
         "type": "bool",         # `bool` is a valid prompt type
-        "store": ["foo_db"]     # but `foo_db` is not a valid store value
+        "store": ["foo_db"],    # but `foo_db` is not a valid store value
+        "require": True
     }
     Prompt(d)                   # should raise ValueError
     
@@ -127,8 +136,7 @@ def test_prompter():
             "key": "name",
             "text": "Name of study?",
             "example": "pig_chewing_study",     # input value to return
-                                                # when testing
-            ...
+            ...                                 # when testing
         },
         {
             "key": "leader",

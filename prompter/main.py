@@ -17,6 +17,7 @@ class Prompt:
           `text`    - text presented when prompting for input
           `info`    - additional info presented with `--verbose` switch
           `example` - example input (used when testing)
+          `require` - True if input is required, False otherwise
           `type`    - indicating type of prompt
           `store`   - array of backend persistence targets
           `regex`   - optional regex pattern to validate input
@@ -26,14 +27,16 @@ class Prompt:
             
              TYPE  - EXPECTED INPUT VALUE
             `bool` - boolean value (to prompt for `yes` or `no` input)
+            `date` - a date value with format `YYYY-MM-DD` (2014-04-28)
             `open` - open-ended string
             `enum` - a value from a fixed list of enumerated options
             `enum_open` - a value from a list of enumerated options or
                           a user specified value
+            `num`  - a numeric value
 
         """
         # ensure prompt dict has all the necessary keys
-        for key in 'key text info example type store'.split(' '):
+        for key in 'key text info example require type store'.split(' '):
             if not (key in p):
                 raise KeyError('prompt dict is missing `{}` key!'.format(key))
 
@@ -47,7 +50,7 @@ class Prompt:
                 raise ValueError(msg)
 
         # check that `type` value is valid
-        type_options = ['bool', 'open', 'enum', 'enum_open']
+        type_options = ['bool', 'date', 'open', 'enum', 'enum_open', 'num']
         type = p['type']
         if not (type in type_options):
             msg = 'type={} | '.format(type)

@@ -9,6 +9,7 @@
             "text": "Name of study?",
             "info": "Your study name should only consist of alphanumeric characters and underscores.",
             "example": "pig_chewing_study",
+            "require": true,
             "type": "open",
             "enum": [],
             "store": [
@@ -21,6 +22,7 @@
             "text": "Description of study?",
             "info": "Provide a short description of the purpose and aim of this study.",
             "example": "A study that looks at how pigs chew stuff.",
+            "require": true,
             "type": "open",
             "enum": [],
             "store": [
@@ -33,6 +35,7 @@
             "text": "Name of PI?",
             "info": "Specify the Principal Investigator for this study.",
             "example": "Callum Ross",
+            "require": true,
             "type": "enum_open",
             "enum": [
                 "Callum Ross"
@@ -47,6 +50,7 @@
             "text": "Name of study leader?",
             "info": "Specify the lab member most responsible for conducting this study.",
             "example": "Kazutaka Takashi",
+            "require": true,
             "type": "enum_open",
             "enum": [
                 "Callum Ross",
@@ -62,6 +66,7 @@
             "text": "Metadata for this study is public?",
             "info": "Can the metadata for this study be made publicly available?", 
             "example": true,
+            "require": true,
             "type": "bool",
             "enum": [],
             "store": [
@@ -74,6 +79,7 @@
             "text": "Data for this study is public?",
             "info": "Can the data files for this study be made publicly available?",
             "example": false,
+            "require": true,
             "type": "bool",
             "enum": [],
             "store": [
@@ -86,6 +92,7 @@
             "text": "Additional notes or comments? (hit return for none)",
             "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
             "example": "See `http://github.com/rcc-uchicago/xpub` for more info.",
+            "require": false,
             "type": "open",
             "enum": [],
             "store": [

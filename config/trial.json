@@ -1,0 +1,73 @@
+{
+    "key": "trial",
+    "author": "J. Voigt",
+    "version": "0.0.1",
+    "description": "prompts to present when creating a new trial",
+    "prompts": [
+        {
+            "key": "study",
+            "text": "Study for which this is a trial?",
+            "info": "What is the study this trial is to be associated with?",
+            "example": "pig_chewing_study",
+            "require": true,
+            "type": "enum",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "name",
+            "text": "Name of trial?",
+            "info": "Your trial name should only consist of alphanumeric characters and underscores.",
+            "example": "markers_1",
+            "require": true,
+            "type": "enum_open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "desc",
+            "text": "Description of trial?",
+            "info": "Provide a short description of this particular trial.",
+            "example": "Initial trial using markers.",
+            "require": false,
+            "type": "open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w{3}"
+        },
+        {
+            "key": "date",
+            "text": "Date of trial?",
+            "info": "Specify the date this trial was conducted: YYYY-MM-DD.",
+            "example": "2015-04-28",
+            "require": true,
+            "type": "open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "^20\\d\\d-[0-2]\\d-[0-3]\\d$"
+        },
+        {
+            "key": "notes",
+            "text": "Additional notes or comments? (hit return for none)",
+            "info": "Here you can provide additional info pertaining to this trial that might be useful for future reference.",
+            "example": "Ten markers were used in this trial for motion tracking.",
+            "require": false,
+            "type": "open",
+            "enum": [],
+            "store": [
+                "xromm"
+            ],
+            "regex": "\\w?"
+        }
+    ]
+}
