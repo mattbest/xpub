@@ -1,0 +1,11 @@
+{
+    "key": "cache",
+    "author": "J. Voigt",
+    "version": "0.0.1",
+    "updated_at": "2015-05-01T11:25:52.971012",
+    "description": "Cache of study and trial name options.",
+    "studies": {
+        "pig-chewing-study": ["trial-1", "trial-2"],
+        "cow-chewing-study": ["trial-1-markerless", "trial-2-markers"]
+    }
+}
