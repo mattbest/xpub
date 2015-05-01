@@ -5,33 +5,33 @@ from .main import Prompt, Prompter
 # valid prompt dicts of various types for testing
 valid_prompt_dicts = {
 
-     # example of dict to prompt the user for open-ended input
+     # example of dict to prompt the user for text input
      'study': {  
         "key": "name",
         "text": "Name of study?",
-        "info": "Your study name should only consist of alphanumeric characters and underscores.",
-        "example": "pig_chewing_study",
+        "info": "Your study name should only consist of alphanumeric characters and hyphens.",
+        "type": "text",
+        "options": [],
+        "example": "pig-chewing-study",
         "require": True,
-        "type": "open",
-        "enum": [],
         "store": [
             "xromm"
         ],
         "regex": "\\w{3}"
     },
 
-    # example of dict to prompt the user to choose from an enumerated list
+    # example of dict to prompt the user to choose from a list of options
     'leader': {
         "key": "leader",
         "text": "Name of study leader?",
         "info": "Specify the lab member most responsible for conducting this study.",
-        "example": "Kazutaka Takashi",
-        "require": True,
-        "type": "enum_open",
-        "enum": [                   # list of options to be enumerated
+        "type": "list",
+        "options": [            # list of options to be enumerated
             "Callum Ross",
             "Kazutaka Takashi"
         ],
+        "example": "Kazutaka Takashi",
+        "require": True,
         "store": [
             "xromm"
         ],
@@ -43,10 +43,10 @@ valid_prompt_dicts = {
         "key": "meta_public",
         "text": "Metadata for this study is public?",
         "info": "Can the metadata for this study be made publicly available?",
+        "type": "bool",
+        "options": [],
         "example": True,        # json value should be `true` (lowercase)
         "require": True,
-        "type": "bool",
-        "enum": [],
         "store": [
             "xromm"
         ],
@@ -58,9 +58,9 @@ valid_prompt_dicts = {
         "key": "years",
         "text": "Age in years?",
         "info": "",
+        "type": "number",
         "example": 5,
         "require": True,
-        "type": "number",
         "store": ["xromm"],
         "regex": ""
     }
@@ -70,14 +70,14 @@ def test_valid_prompts():
     '''Testing Prompt class'''
     prompt = Prompt(valid_prompt_dicts['study'])
     assert prompt.key is "name"
-    assert prompt.type is "open"
+    assert prompt.type is "text"
     assert prompt.require is True
     result = prompt(testing=True)
-    assert result == "pig_chewing_study", "should return example when testing"
+    assert result == "pig-chewing-study", "should return example when testing"
 
     prompt = Prompt(valid_prompt_dicts['leader'])
     assert prompt.key is "leader"
-    assert prompt.type is "enum_open"
+    assert prompt.type is "list"
     assert prompt.require is True
     result = prompt(testing=True)
     assert result == "Kazutaka Takashi", "should return example when testing"
@@ -121,9 +121,9 @@ def test_invalid_type():
         "key": "foo",
         "text": "What is the foo?",
         "info": "",
+        "type": "foo",          # `foo` is not a valid prompt type
         "example": "bar",
         "require": True,
-        "type": "foo",          # `foo` is not a valid prompt type
         "store": ["xromm"]
     }
     Prompt(d)                   # should raise ValueError
@@ -135,9 +135,9 @@ def test_invalid_store():
         "key": "foo",
         "text": "Do you feel the foo?",
         "info": "",
+        "type": "bool",         # `bool` is a valid prompt type
         "example": True,
         "require": True,
-        "type": "bool",         # `bool` is a valid prompt type
         "store": ["foo_db"]     # but `foo_db` is not a valid store value
     }
     Prompt(d)                   # should raise ValueError
@@ -148,9 +148,9 @@ def test_to_number():
         "key": "years",
         "text": "Age in years?",
         "info": "",
+        "type": "number",
         "example": 5,
         "require": True,
-        "type": "number",
         "store": ["xromm"]
     }
     prompt = Prompt(d)
@@ -174,9 +174,9 @@ def test_to_number_err():
         "key": "years",
         "text": "Age in years?",
         "info": "",
+        "type": "number",
         "example": 5,
         "require": True,
-        "type": "number",
         "store": ["xromm"]
     }
     prompt = Prompt(d)
@@ -205,11 +205,13 @@ def test_prompter():
         },
 
     '''
+    import json
+
     # this is the expected result based on the example inputs specified 
     # in our `study.json` config file
     expected = {
         "data": {
-            "name": "pig_chewing_study", 
+            "name": "pig-chewing-study", 
             "notes": "See `http://github.com/rcc-uchicago/xpub` for more info.", 
             "data_public": False, 
             "meta_public": True, 
@@ -221,9 +223,13 @@ def test_prompter():
         "resource": "study"
     }
 
+    # load resource configuration file for the prompter
     d = os.path.dirname(os.path.realpath(__file__))
-    local_config_path = os.path.join(d, '..', 'config', 'study.json')
+    local_config_path = os.path.join(d, '..', 'config')
     CONFIG_DIR = os.environ.get('XROMM_CONFIG', local_config_path)
-    prompt = Prompter(CONFIG_DIR, testing=True)
+    config = json.load(open(os.path.join(CONFIG_DIR, 'study.json')))
+
+    prompt = Prompter(config, testing=True)
     prompt()
+    print prompt.results
     assert prompt.results == expected

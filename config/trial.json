@@ -1,112 +1,113 @@
 {
     "key": "trial",
-    "author": "J. Voigt",
-    "version": "0.0.1",
-    "description": "prompts to present when creating a new trial",
+    "version": "0.0.1", 
+    "author": "J. Voigt", 
+    "description": "prompts to present when creating a new trial", 
+    "updated_at": "2015-05-01T10:17:11.167398Z", 
     "prompts": [
         {
-            "key": "study",
-            "text": "Study for which this is a trial?",
-            "info": "What is the study this trial is to be associated with?",
-            "example": "pig_chewing_study",
-            "require": true,
-            "type": "enum",
-            "enum": [],
+            "info": "What is the study this trial is to be associated with?", 
+            "regex": "\\w{3}", 
+            "text": "Study for which this is a trial?", 
+            "require": true, 
+            "options": [], 
+            "key": "study", 
+            "type": "list", 
+            "example": "pig-chewing-study", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "name",
-            "text": "Name of trial?",
-            "info": "Your trial name should only consist of alphanumeric characters and underscores.",
-            "example": "markers_1",
-            "require": true,
-            "type": "enum_open",
-            "enum": [],
+            "info": "Your trial name should only consist of alphanumeric characters and underscores.", 
+            "regex": "\\w{3}", 
+            "text": "Name of trial?", 
+            "require": true, 
+            "options": [], 
+            "key": "name", 
+            "type": "text", 
+            "example": "markers_1", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "desc",
-            "text": "Description of trial?",
-            "info": "Provide a short description of this particular trial.",
-            "example": "Initial trial using markers.",
-            "require": false,
-            "type": "open",
-            "enum": [],
+            "info": "Provide a short description of this particular trial.", 
+            "regex": "\\w{3}", 
+            "text": "Description of trial?", 
+            "require": false, 
+            "options": [], 
+            "key": "desc", 
+            "type": "text", 
+            "example": "Initial trial using markers.", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "date",
-            "text": "Date of trial?",
-            "info": "Specify the date this trial was conducted: YYYY-MM-DD.",
-            "example": "2015-04-28",
-            "require": true,
-            "type": "date",
-            "enum": [],
+            "info": "Specify the date this trial was conducted: YYYY-MM-DD.", 
+            "regex": "", 
+            "text": "Date of trial?", 
+            "require": true, 
+            "options": [], 
+            "key": "date", 
+            "type": "date", 
+            "example": "2015-04-28", 
             "store": [
                 "xromm"
-            ],
-            "regex": ""
-        },
+            ]
+        }, 
         {
-            "key": "notes",
-            "text": "Additional notes or comments? (hit return for none)",
-            "info": "Here you can provide additional info pertaining to this trial that might be useful for future reference.",
-            "example": "Ten markers were used in this trial for motion tracking.",
-            "require": false,
-            "type": "open",
-            "enum": [],
+            "info": "Here you can provide additional info pertaining to this trial that might be useful for future reference.", 
+            "regex": "\\w?", 
+            "text": "Additional notes or comments? (hit return for none)", 
+            "require": false, 
+            "options": [], 
+            "key": "notes", 
+            "type": "text", 
+            "example": "Ten markers were used in this trial for motion tracking.", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w?"
-        },
+            ]
+        }, 
         {
-            "key": "subject_name",
-            "text": "Name of research subject?",
-            "info": "Specify the name of the individual research subject.",
-            "example": "maxwell",
-            "require": false,
-            "type": "enum_open",
-            "enum": [],
+            "info": "Specify the name of the individual research subject.", 
+            "regex": "\\w{3}", 
+            "text": "Name of research subject?", 
+            "require": false, 
+            "options": [], 
+            "key": "subject_name", 
+            "type": "list", 
+            "example": "maxwell", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "subject_genus_species",
-            "text": "Genus/species of research subject?",
-            "info": "Specify the genus and species of the individual research subject.",
-            "example": "gallus domesticus",
-            "require": false,
-            "type": "enum_open",
-            "enum": [],
+            "info": "Specify the genus and species of the individual research subject.", 
+            "regex": "\\w{3}", 
+            "text": "Genus/species of research subject?", 
+            "require": false, 
+            "options": [], 
+            "key": "subject_genus_species", 
+            "type": "list", 
+            "example": "gallus domesticus", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "subject_grams",
-            "text": "Weight of research subject in grams?",
-            "info": "Specify the weight of the individual research subject in grams.",
-            "example": "300",
-            "require": false,
-            "type": "number",
-            "enum": [],
+            "info": "Specify the weight of the individual research subject in grams.", 
+            "regex": "", 
+            "text": "Weight of research subject in grams?", 
+            "require": false, 
+            "options": [], 
+            "key": "subject_grams", 
+            "type": "number", 
+            "example": "300", 
             "store": [
                 "xromm"
-            ],
-            "regex": ""
+            ]
         }
-    ]
+    ] 
 }

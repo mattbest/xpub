@@ -2,16 +2,17 @@
     "key": "study",
     "author": "J. Voigt",
     "version": "0.0.1",
+    "updated_at": "2015-05-01T10:25:52.971012",
     "description": "prompts to present when creating a new study",
     "prompts": [
         {
             "key": "name",
             "text": "Name of study?",
-            "info": "Your study name should only consist of alphanumeric characters and underscores.",
-            "example": "pig_chewing_study",
+            "info": "Your study name should only consist of alphanumeric characters and hyphens.",
+            "example": "pig-chewing-study",
             "require": true,
-            "type": "open",
-            "enum": [],
+            "type": "text",
+            "options": [],
             "store": [
                 "xromm"
             ],
@@ -23,8 +24,8 @@
             "info": "Provide a short description of the purpose and aim of this study.",
             "example": "A study that looks at how pigs chew stuff.",
             "require": true,
-            "type": "open",
-            "enum": [],
+            "type": "text",
+            "options": [],
             "store": [
                 "xromm"
             ],
@@ -36,8 +37,8 @@
             "info": "Specify the Principal Investigator for this study.",
             "example": "Callum Ross",
             "require": true,
-            "type": "enum_open",
-            "enum": [
+            "type": "list",
+            "options": [
                 "Callum Ross"
             ],
             "store": [
@@ -51,10 +52,9 @@
             "info": "Specify the lab member most responsible for conducting this study.",
             "example": "Kazutaka Takashi",
             "require": true,
-            "type": "enum_open",
-            "enum": [
-                "Callum Ross",
-                "Kazutaka Takashi"
+            "type": "list",
+            "options": [
+                "Callum Ross"
             ],
             "store": [
                 "xromm"
@@ -68,7 +68,7 @@
             "example": true,
             "require": true,
             "type": "bool",
-            "enum": [],
+            "options": [],
             "store": [
                 "xromm"
             ],
@@ -81,7 +81,7 @@
             "example": false,
             "require": true,
             "type": "bool",
-            "enum": [],
+            "options": [],
             "store": [
                 "xromm"
             ],
@@ -93,8 +93,8 @@
             "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
             "example": "See `http://github.com/rcc-uchicago/xpub` for more info.",
             "require": false,
-            "type": "open",
-            "enum": [],
+            "type": "text",
+            "options": [],
             "store": [
                 "xromm"
             ],

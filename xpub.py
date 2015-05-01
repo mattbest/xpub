@@ -18,7 +18,9 @@ Examples:
 
 """
 import os
+import json
 import argparse
+from datetime import datetime
 from prompter import Prompter
 
 # set config dir based on $XROMM_CONFIG env variable if present
@@ -44,20 +46,39 @@ group.add_argument('file', nargs='?', help="Transfer a file")
 args = parser.parse_args()
 
 if args.study:
-    res = 'study.json'
+    resource = 'study.json'
 elif args.trial:
-    res = 'trial.json'
+    resource = 'trial.json'
 elif args.file:
-    res = 'file.json'
+    resource = 'file.json'
 else:
     parser.print_help()
     raise SystemExit
 
-config = os.path.join(CONFIG_DIR, res)
+config_path = os.path.join(CONFIG_DIR, resource)        # resource config
+cache_path  = os.path.join(CONFIG_DIR, 'cache.json')    # cached info
     
-# initialize a prompter with appropriate resource config file
-prompt = Prompter(config, verbose=args.verbose)
+config = json.load(open(config_path))   # load resource config file
+cache = json.load(open(cache_path))     # load cached study/trial options
+
+# supplement config with cached info if out of date
+if config['updated_at'] < cache['updated_at']:
+    # add cached study names if creating a trial
+    if config['key'] == 'trial':
+        # first prompt should be for name of study
+        config['prompts'][0]['options'] = cache['studies'].keys()
+
+prompt = Prompter(config, verbose=args.verbose) # initialize a prompter
 
 prompt()        # prompt for input
+
+# if new input was seen, we'll add it to the config file ...
+if prompt.config_revisions:
+    now = datetime.now().isoformat() + 'Z'
+    prompt.config['updated_at'] = now
+    # revised_config = json.dumps(prompt.config, indent=4)
+    # save changes
+    with open(config_path, 'w') as f:
+            json.dump(prompt.config, f, indent=4)
 
 print prompt    # print collected input

@@ -28,10 +28,9 @@ class Prompt:
              TYPE  - EXPECTED INPUT VALUE
             `bool` - boolean value (to prompt for `yes` or `no` input)
             `date` - a date value with format `YYYY-MM-DD` (2014-04-28)
-            `open` - open-ended string
-            `enum` - a value from a fixed list of enumerated options
-            `enum_open` - a value from a list of enumerated options or
-                          a user specified value
+            `text` - open-ended string
+            `list` - a value from a fixed list of enumerated options
+                     or a user specified value
             `number` - a numeric value
 
         The value of `p['store']` should be an array of string values,
@@ -59,7 +58,7 @@ class Prompt:
                 raise ValueError(msg)
 
         # check that `type` value is valid
-        type_options = ['bool', 'date', 'open', 'enum', 'enum_open', 'number']
+        type_options = ['bool', 'date', 'text', 'list', 'number']
         type = p['type']
         if not (type in type_options):
             msg = 'type={} | '.format(type)
@@ -98,11 +97,11 @@ class Prompt:
 
         print("\n{}\n".format(text))
 
-        # if prompt has enumerated options, enumerate them
-        if self.enum:
+        # if prompt has options, enumerate them
+        if self.options:
             return self.enumerate_options()
 
-        # ... otherwise, for non-enumerated prompt types ...
+        # ... otherwise, for other prompt types ...
         resp = self.get_input()
 
         # return null response if no input given and not required
@@ -176,10 +175,10 @@ class Prompt:
         Enumerate provided options for user to select.
 
         """
-        if self.type == 'enum_open':
-            self.enum.append('Specify other')   # permit other input
+        options = self.options[:]           # create a copy of options
+        options.append('Specify other')     # permit other input
 
-        for (i, opt) in enumerate(self.enum):
+        for (i, opt) in enumerate(options):
             print("\t{} - {}".format(i, opt))
         print
         resp = self.get_input()
@@ -187,20 +186,17 @@ class Prompt:
         try:
             choice = int(resp)
         except ValueError:
-            if self.type == 'enum_open':
-                return resp     # assume they meant to input an alternative
-            else:
-                choice = -1     # try again!
+            return resp     # assume they meant to input an alternative
 
-        if 0 <= choice < len(self.enum):
-            result = self.enum[choice]
+        if 0 <= choice < len(options):
+            result = options[choice]
             if result == 'Specify other':
-                print("\n{}\n".format(text))
-                resp = self.get_input()
-            return resp
+                print("\n{}\n".format(self.text))
+                result = self.get_input()
+            return result
 
         print("Please specify the number of one of the listed options!")
-        return self.__call__(verbose, testing)
+        return self.__call__()
 
 
 class Prompter:
@@ -216,22 +212,22 @@ class Prompter:
         """
         self.testing = testing              # true if testing
         self.verbose = verbose              # true for extra prompt info
-
-        # load the JSON-formatted resource config file specified in path
-        resource = json.load(open(config))
+        self.config_revisions = False       # true with new input options
+        self.config = config
 
         # input will be collected for this resource under `data` key
         self.results = {
-            'resource': resource['key'],    # name of resource
-            'version':  resource['version'],
+            'resource': config['key'],    # name of resource
+            'version':  config['version'],
             'data': {}  # store k/v attributes for this resource here
         }
 
         # try initializing prompt dicts from loaded resource config file
         try:
-            self.prompts = [Prompt(p) for p in resource['prompts']]
+            self.prompts = [Prompt(p) for p in config['prompts']]
         except ValueError, KeyError:
-            print "\nError initializing prompt dicts in {}!\n".format(config)
+            err = "\nError initializing prompt dicts in {} config!\n"
+            print err.format(config['key'])
             raise
 
     def __call__(self):
@@ -239,8 +235,14 @@ class Prompter:
         Run each prompt and set value of each key to the collected input.
         
         """
-        for prompt in self.prompts:
+        for i, prompt in enumerate(self.prompts):
             result = prompt(testing=self.testing)
+
+            # check for new input options to cache
+            if prompt.type == 'list' and result not in prompt.options:
+                self.config['prompts'][i]['options'].append(result)
+                self.config_revisions = True
+                
             self.set(prompt.key, result)
 
     def __str__(self):
