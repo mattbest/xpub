@@ -239,7 +239,8 @@ class Prompter:
             result = prompt(testing=self.testing)
 
             # check for new input options to cache
-            if prompt.type == 'list' and result not in prompt.options:
+            if result and prompt.type == 'list' \
+                      and result not in prompt.options:
                 self.config['prompts'][i]['options'].append(result)
                 self.config_revisions = True
                 

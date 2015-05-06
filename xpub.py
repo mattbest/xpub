@@ -63,22 +63,43 @@ cache = json.load(open(cache_path))     # load cached study/trial options
 
 # supplement config with cached info if out of date
 if config['updated_at'] < cache['updated_at']:
-    # add cached study names if creating a trial
+
+    # if creating a trial, add cached study names
     if config['key'] == 'trial':
         # first prompt should be for name of study
         config['prompts'][0]['options'] = cache['studies'].keys()
 
+    # if moving a file, add cached trial names 
+    elif config['key'] == 'file':
+        # first prompt should be for name of trial
+        config['prompts'][0]['options'] = cache['trials'].keys()
+
+
 prompt = Prompter(config, verbose=args.verbose) # initialize a prompter
+prompt()                                        # prompt for input
 
-prompt()        # prompt for input
+# update a json config file (at `path`) with new config `data`
+def update_json(data, path):
+    data['updated_at'] = datetime.now().isoformat() + 'Z'
+    with open(path, 'w') as f:
+        json.dump(data, f, indent=4)
 
-# if new input was seen, we'll add it to the config file ...
-if prompt.config_revisions:
-    now = datetime.now().isoformat() + 'Z'
-    prompt.config['updated_at'] = now
-    # revised_config = json.dumps(prompt.config, indent=4)
-    # save changes
-    with open(config_path, 'w') as f:
-            json.dump(prompt.config, f, indent=4)
+if prompt.config_revisions:                     # if new input was seen ...
+    update_json(prompt.config, config_path)     # update config
 
-print prompt    # print collected input
+# if new trial or study was created ...
+if args.study:
+    name = prompt.results['data']['name']       # name entered when prompted
+    if not name in cache['studies']:
+        cache['studies'][name] = []
+        update_json(cache, cache_path)
+elif args.trial:
+    study = prompt.results['data']['study']     # study name entered
+    trial = prompt.results['data']['name']      # trial name entered
+    if not study in cache['studies']:
+        cache['studies'][study] = []
+    if not trial in cache['studies'][study]:
+        cache['studies'][study].append(trial)
+        update_json(cache, cache_path)
+
+print prompt                                    # print collected input

@@ -1,19 +1,21 @@
 {
-    "key": "trial",
-    "version": "0.0.1", 
-    "author": "J. Voigt", 
     "description": "prompts to present when creating a new trial", 
-    "updated_at": "2015-05-01T10:17:11.167398Z", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-05-06T15:15:45.046586Z", 
     "prompts": [
         {
             "info": "What is the study this trial is to be associated with?", 
             "regex": "\\w{3}", 
             "text": "Study for which this is a trial?", 
             "require": true, 
-            "options": [], 
+            "example": "pig-chewing-study", 
             "key": "study", 
             "type": "list", 
-            "example": "pig-chewing-study", 
+            "options": [
+                "pig-chewing-study", 
+                "lamb-chewing-study", 
+                "cow-chewing-study"
+            ], 
             "store": [
                 "xromm"
             ]
@@ -23,10 +25,10 @@
             "regex": "\\w{3}", 
             "text": "Name of trial?", 
             "require": true, 
-            "options": [], 
+            "example": "markers_1", 
             "key": "name", 
             "type": "text", 
-            "example": "markers_1", 
+            "options": [], 
             "store": [
                 "xromm"
             ]
@@ -36,10 +38,10 @@
             "regex": "\\w{3}", 
             "text": "Description of trial?", 
             "require": false, 
-            "options": [], 
+            "example": "Initial trial using markers.", 
             "key": "desc", 
             "type": "text", 
-            "example": "Initial trial using markers.", 
+            "options": [], 
             "store": [
                 "xromm"
             ]
@@ -49,10 +51,10 @@
             "regex": "", 
             "text": "Date of trial?", 
             "require": true, 
-            "options": [], 
+            "example": "2015-04-28", 
             "key": "date", 
             "type": "date", 
-            "example": "2015-04-28", 
+            "options": [], 
             "store": [
                 "xromm"
             ]
@@ -62,10 +64,10 @@
             "regex": "\\w?", 
             "text": "Additional notes or comments? (hit return for none)", 
             "require": false, 
-            "options": [], 
+            "example": "Ten markers were used in this trial for motion tracking.", 
             "key": "notes", 
             "type": "text", 
-            "example": "Ten markers were used in this trial for motion tracking.", 
+            "options": [], 
             "store": [
                 "xromm"
             ]
@@ -75,10 +77,12 @@
             "regex": "\\w{3}", 
             "text": "Name of research subject?", 
             "require": false, 
-            "options": [], 
+            "example": "maxwell", 
             "key": "subject_name", 
             "type": "list", 
-            "example": "maxwell", 
+            "options": [
+                "max"
+            ], 
             "store": [
                 "xromm"
             ]
@@ -88,10 +92,12 @@
             "regex": "\\w{3}", 
             "text": "Genus/species of research subject?", 
             "require": false, 
-            "options": [], 
+            "example": "gallus domesticus", 
             "key": "subject_genus_species", 
             "type": "list", 
-            "example": "gallus domesticus", 
+            "options": [
+                "monkey"
+            ], 
             "store": [
                 "xromm"
             ]
@@ -101,13 +107,15 @@
             "regex": "", 
             "text": "Weight of research subject in grams?", 
             "require": false, 
-            "options": [], 
+            "example": "300", 
             "key": "subject_grams", 
             "type": "number", 
-            "example": "300", 
+            "options": [], 
             "store": [
                 "xromm"
             ]
         }
-    ] 
+    ], 
+    "version": "0.0.1", 
+    "key": "trial"
 }

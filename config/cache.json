@@ -1,11 +1,23 @@
 {
-    "key": "cache",
-    "author": "J. Voigt",
-    "version": "0.0.1",
-    "updated_at": "2015-05-01T11:25:52.971012",
-    "description": "Cache of study and trial name options.",
+    "description": "Cache of study and trial name options.", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-05-06T15:15:45.051870Z", 
+    "version": "0.0.1", 
+    "key": "cache", 
     "studies": {
-        "pig-chewing-study": ["trial-1", "trial-2"],
-        "cow-chewing-study": ["trial-1-markerless", "trial-2-markers"]
+        "pig-chewing-study": [
+            "trial-1", 
+            "trial-2"
+        ], 
+        "lamb-chewing-study": [
+            "trial-2", 
+            "trial-1"
+        ], 
+        "cow-chewing-study": [
+            "trial-1-markerless", 
+            "trial-2-markers", 
+            "trail-4", 
+            "trial-2"
+        ]
     }
 }
