@@ -5,8 +5,8 @@ from .main import Prompt, Prompter
 # valid prompt dicts of various types for testing
 valid_prompt_dicts = {
 
-     # example of dict to prompt the user for text input
-     'study': {  
+    # example of dict to prompt the user for text input
+    'study': {  
         "key": "name",
         "text": "Name of study?",
         "info": "Your study name should only consist of alphanumeric characters and hyphens.",

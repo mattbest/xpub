@@ -21,7 +21,7 @@ import os
 import json
 import argparse
 from datetime import datetime
-from prompter import Prompter
+from prompter import Prompt, Prompter
 
 # set config dir based on $XROMM_CONFIG env variable if present
 # otherwise look for a `config` dir in current working dir
@@ -69,7 +69,7 @@ if config['updated_at'] < cache['updated_at']:
         # first prompt should be for name of study
         config['prompts'][0]['options'] = cache['studies'].keys()
 
-    # if moving a file, add cached trial names 
+    # if transferring a file, add cached trial names 
     elif config['key'] == 'file':
         # first prompt should be for name of trial
         config['prompts'][0]['options'] = cache['trials'].keys()
@@ -78,21 +78,84 @@ if config['updated_at'] < cache['updated_at']:
 prompt = Prompter(config, verbose=args.verbose) # initialize a prompter
 prompt()                                        # prompt for input
 
-# update a json config file (at `path`) with new config `data`
-def update_json(data, path):
+
+# ok . . . with input collected, what should be done with it?
+
+
+# save/update a json config file (at `path`) with config `data`
+def save_json(data, path):
     data['updated_at'] = datetime.now().isoformat() + 'Z'
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
 
+
+# possible actions to take with collected input  . . .
+
+def view(results): 
+    print results
+
+def save(results):                              
+    path = os.path.join(os.getcwd(), 'input.json')
+    save_json(results, path)
+    print "input saved to", path
+
+def send(results): 
+    path = 'study/'
+    r = results['resource']
+    if r is 'trial':
+        path += results['study'] + '/trial/'
+    version = results['version']
+    url = 'http://xromm.rcc.uchicago/api/v{}/{}'.format(version, path)
+    # url = "http://httpbin.org/post"
+    print "sending results to", url
+    '''
+    resp = requests.post(url, data=results)
+    print(resp.text)
+    '''
+
+def quit(results): 
+    raise SystemExit
+
+# dict of possible action choices (keys) and action functions (values)
+actions = {
+    "view": view,
+    "save": save,
+    "send": send,
+    "quit": quit
+}
+
+# prompt configuration, to prompt for an action
+action_config = {  
+    "key": "action",
+    "text": "What to do with the collected metadata?",
+    "info": "What do you want to do with these inputs?",
+    "type": "list",
+    "options": [
+        "view (look it over before doing anything else)",
+        "save (save it to a file)",
+        "send (send it off to the `xromm` server)",
+        "quit (just discard it and try again)"
+    ],
+    "example": "quit (just discard it and try again)",
+    "require": True,
+    "store": [],
+    "regex": ""
+}
+
+prompt_for_action = Prompt(action_config)       # create prompt based on config
+input = prompt_for_action(fixed=True)           # prompt for input
+choice = input.split(' ')[0]                    # get action from input
+actions[choice](prompt.results)                 # do the chosen action
+
 if prompt.config_revisions:                     # if new input was seen ...
-    update_json(prompt.config, config_path)     # update config
+    save_json(prompt.config, config_path)       # update config
 
 # if new trial or study was created ...
 if args.study:
     name = prompt.results['data']['name']       # name entered when prompted
     if not name in cache['studies']:
         cache['studies'][name] = []
-        update_json(cache, cache_path)
+        save_json(cache, cache_path)            # update cache
 elif args.trial:
     study = prompt.results['data']['study']     # study name entered
     trial = prompt.results['data']['name']      # trial name entered
@@ -100,6 +163,4 @@ elif args.trial:
         cache['studies'][study] = []
     if not trial in cache['studies'][study]:
         cache['studies'][study].append(trial)
-        update_json(cache, cache_path)
-
-print prompt                                    # print collected input
+        save_json(cache, cache_path)            # update cache

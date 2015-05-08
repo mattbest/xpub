@@ -1,17 +1,13 @@
 {
     "description": "Cache of study and trial name options.", 
     "author": "J. Voigt", 
-    "updated_at": "2015-05-06T15:15:45.051870Z", 
+    "updated_at": "2015-05-07T21:37:35.990361Z", 
     "version": "0.0.1", 
     "key": "cache", 
     "studies": {
         "pig-chewing-study": [
             "trial-1", 
             "trial-2"
-        ], 
-        "lamb-chewing-study": [
-            "trial-2", 
-            "trial-1"
         ], 
         "cow-chewing-study": [
             "trial-1-markerless", 

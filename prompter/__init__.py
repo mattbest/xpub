@@ -1,1 +1,1 @@
-from .main import Prompter
+from .main import Prompter, Prompt

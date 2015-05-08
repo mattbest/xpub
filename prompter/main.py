@@ -73,10 +73,18 @@ class Prompt:
         self.__dict__.update(**p)
 
 
-    def __call__(self, verbose=False, testing=False):
+    def __call__(self, verbose=False, testing=False, fixed=False):
         """
         Run the prompt and return input response (or the supplied
         prompt example if testing).
+
+        If `verbose` is true, additional usage/info is presented 
+        when prompting.
+
+        If `testing` is true, example input is returned.
+
+        If `fixed` is true, users can only specify one of the
+        enumerated options for prompts of type `list`.
 
         """
         if testing:
@@ -99,7 +107,7 @@ class Prompt:
 
         # if prompt has options, enumerate them
         if self.options:
-            return self.enumerate_options()
+            return self.enumerate_options(fixed)
 
         # ... otherwise, for other prompt types ...
         resp = self.get_input()
@@ -170,13 +178,17 @@ class Prompt:
         return self.yyyy_mm_dd.match(input)
 
 
-    def enumerate_options(self):
+    def enumerate_options(self, fixed=False):
         """
         Enumerate provided options for user to select.
+        
+        If `fixed` is True, do not include option to specify
+        alternative input.
 
         """
         options = self.options[:]           # create a copy of options
-        options.append('Specify other')     # permit other input
+        if not fixed:
+            options.append('Specify other') # permit other input
 
         for (i, opt) in enumerate(options):
             print("\t{} - {}".format(i, opt))
