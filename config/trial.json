@@ -73,9 +73,7 @@
             "regex": "\\w{3}", 
             "text": "Name of research subject?", 
             "require": false, 
-            "options": [
-                "maxwell"
-            ], 
+            "options": [], 
             "key": "subject_name", 
             "type": "list", 
             "example": "maxwell", 
@@ -88,9 +86,7 @@
             "regex": "\\w{3}", 
             "text": "Genus/species of research subject?", 
             "require": false, 
-            "options": [
-                "monkey"
-            ], 
+            "options": [], 
             "key": "subject_genus_species", 
             "type": "list", 
             "example": "gallus domesticus", 

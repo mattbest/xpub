@@ -1,7 +1,7 @@
 {
     "description": "Cache of study and trial name options.", 
     "author": "J. Voigt", 
-    "updated_at": "2015-05-07T21:37:35.990361Z", 
+    "updated_at": "2015-05-08T11:07:11.819927Z", 
     "version": "0.0.1", 
     "key": "cache", 
     "studies": {
@@ -12,8 +12,7 @@
         "cow-chewing-study": [
             "trial-1-markerless", 
             "trial-2-markers", 
-            "trail-4", 
-            "trial-2"
+            "trail-3"
         ]
     }
 }

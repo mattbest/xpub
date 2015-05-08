@@ -1,5 +1,5 @@
 import re
-import json
+import datetime 
 
 
 class Prompt:
@@ -99,9 +99,9 @@ class Prompt:
         if self.type == 'bool':
             text += " (`y` or `n`)"
 
-        # for date inputs, indicate required date format
+        # for date inputs, provide today's date as default option
         if self.type == 'date':
-            text += " (YYYY-MM-DD)"
+            text += " (hit return for `{}`)".format(self.today())
 
         print("\n{}\n".format(text))
 
@@ -131,12 +131,15 @@ class Prompt:
             try:
                 return self.to_number(resp)
             except ValueError:
-                print("\nInvalid numeric input. Please reenter value")
+                print("\nInvalid numeric input. Please re-enter value")
                 return self.__call__(verbose, testing)
 
-        if self.type == 'date' and not self.valid_date(resp):
-            print("\nInvalid date input. Please use `YYYY-MM-DD` format.")
-            return self.__call__(verbose, testing)
+        if self.type == 'date':
+            if resp and not self.valid_date(resp):
+                print("\nInvalid date input. Please use `YYYY-MM-DD` format.")
+                return self.__call__(verbose, testing)
+            else:
+                return self.today()
 
         # finally, check response against any supplied regex pattern
         if self.regex:
@@ -168,6 +171,14 @@ class Prompt:
         except ValueError:
             n = float(input)
             return n
+
+
+    def today(self):
+        """
+        Return today's date as an ISO-formatted string: YYYY-MM-DD.
+
+        """
+        return datetime.date.today().isoformat()
 
 
     def valid_date(self, input):
@@ -263,9 +274,6 @@ class Prompter:
                 self.config_revisions = True
                 
             self.set(prompt.key, result)
-
-    def __str__(self):
-        return json.dumps(self.results, indent=4)
 
     def set(self, key, result):
         "Set a key in collected data to result."

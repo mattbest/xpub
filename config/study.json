@@ -1,104 +1,105 @@
 {
-    "key": "study",
-    "author": "J. Voigt",
-    "version": "0.0.1",
-    "updated_at": "2015-05-01T10:25:52.971012",
-    "description": "prompts to present when creating a new study",
+    "description": "prompts to present when creating a new study", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-05-08T12:08:54.219260Z", 
     "prompts": [
         {
-            "key": "name",
-            "text": "Name of study?",
-            "info": "Your study name should only consist of alphanumeric characters and hyphens.",
-            "example": "pig-chewing-study",
-            "require": true,
-            "type": "text",
-            "options": [],
+            "info": "Your study name should only consist of alphanumeric characters and hyphens.", 
+            "regex": "\\w{3}", 
+            "text": "Name of study?", 
+            "require": true, 
+            "options": [], 
+            "key": "name", 
+            "type": "text", 
+            "example": "pig-chewing-study", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "desc",
-            "text": "Description of study?",
-            "info": "Provide a short description of the purpose and aim of this study.",
-            "example": "A study that looks at how pigs chew stuff.",
-            "require": true,
-            "type": "text",
-            "options": [],
+            "info": "Provide a short description of the purpose and aim of this study.", 
+            "regex": "\\w{3}", 
+            "text": "Description of study?", 
+            "require": true, 
+            "options": [], 
+            "key": "desc", 
+            "type": "text", 
+            "example": "A study that looks at how pigs chew stuff.", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w{3}"
-        },
+            ]
+        }, 
         {
-            "key": "pi",
-            "text": "Name of PI?",
-            "info": "Specify the Principal Investigator for this study.",
-            "example": "Callum Ross",
-            "require": true,
-            "type": "list",
+            "info": "Specify the Principal Investigator for this study.", 
+            "regex": "^\\d$", 
+            "text": "Name of PI?", 
+            "require": true, 
             "options": [
                 "Callum Ross"
-            ],
+            ], 
+            "key": "pi", 
+            "type": "list", 
+            "example": "Callum Ross", 
             "store": [
                 "xromm"
-            ],
-            "regex": "^\\d$"
-        },
+            ]
+        }, 
         {
-            "key": "leader",
-            "text": "Name of study leader?",
-            "info": "Specify the lab member most responsible for conducting this study.",
-            "example": "Kazutaka Takashi",
-            "require": true,
-            "type": "list",
+            "info": "Specify the lab member most responsible for conducting this study.", 
+            "regex": "^\\d$", 
+            "text": "Name of study leader?", 
+            "require": true, 
             "options": [
-                "Callum Ross"
-            ],
+                "Callum Ross", 
+                "Kazutaka Takahashi"
+            ], 
+            "key": "leader", 
+            "type": "list", 
+            "example": "Kazutaka Takashi", 
             "store": [
                 "xromm"
-            ],
-            "regex": "^\\d$"
-        },
+            ]
+        }, 
         {
-            "key": "meta_public",
-            "text": "Metadata for this study is public?",
             "info": "Can the metadata for this study be made publicly available?", 
-            "example": true,
-            "require": true,
-            "type": "bool",
-            "options": [],
+            "regex": "", 
+            "text": "Metadata for this study is public?", 
+            "require": true, 
+            "options": [], 
+            "key": "meta_public", 
+            "type": "bool", 
+            "example": true, 
             "store": [
                 "xromm"
-            ],
-            "regex": ""
-        },
+            ]
+        }, 
         {
-            "key": "data_public",
-            "text": "Data for this study is public?",
-            "info": "Can the data files for this study be made publicly available?",
-            "example": false,
-            "require": true,
-            "type": "bool",
-            "options": [],
+            "info": "Can the data files for this study be made publicly available?", 
+            "regex": "", 
+            "text": "Data for this study is public?", 
+            "require": true, 
+            "options": [], 
+            "key": "data_public", 
+            "type": "bool", 
+            "example": false, 
             "store": [
                 "xromm"
-            ],
-            "regex": ""
-        },
+            ]
+        }, 
         {
-            "key": "notes",
-            "text": "Additional notes or comments?",
-            "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
-            "example": "See `http://github.com/rcc-uchicago/xpub` for more info.",
-            "require": false,
-            "type": "text",
-            "options": [],
+            "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.", 
+            "regex": "\\w?", 
+            "text": "Additional notes or comments?", 
+            "require": false, 
+            "options": [], 
+            "key": "notes", 
+            "type": "text", 
+            "example": "See `http://github.com/rcc-uchicago/xpub` for more info.", 
             "store": [
                 "xromm"
-            ],
-            "regex": "\\w?"
+            ]
         }
-    ]
+    ], 
+    "version": "0.0.1", 
+    "key": "study"
 }
