@@ -89,7 +89,7 @@
         },
         {
             "key": "notes",
-            "text": "Additional notes or comments? (hit return for none)",
+            "text": "Additional notes or comments?",
             "info": "Here you can provide additional info pertaining to this study that might be useful for future reference.",
             "example": "See `http://github.com/rcc-uchicago/xpub` for more info.",
             "require": false,

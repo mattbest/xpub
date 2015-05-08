@@ -30,6 +30,9 @@ CONFIG_DIR = os.environ.get('XROMM_CONFIG', cwd_config)
 
 # setup the argument parser
 parser = argparse.ArgumentParser(version="0.1", description=__doc__)
+parser.add_argument('--required', 
+                    action="store_true", 
+                    help="Only prompt for required input")
 parser.add_argument('--verbose', 
                     action="store_true", 
                     help="Provide additional info when prompting")
@@ -75,8 +78,9 @@ if config['updated_at'] < cache['updated_at']:
         config['prompts'][0]['options'] = cache['trials'].keys()
 
 
-prompt = Prompter(config, verbose=args.verbose) # initialize a prompter
-prompt()                                        # prompt for input
+prompt = Prompter(config, verbose=args.verbose,
+                          required=args.required)   # initialize a prompter
+prompt()                                            # prompt for input
 
 
 # ok . . . with input collected, what should be done with it?
@@ -92,7 +96,7 @@ def save_json(data, path):
 # possible actions to take with collected input  . . .
 
 def view(results): 
-    print results
+    print json.dumps(results, indent=4)
 
 def save(results):                              
     path = os.path.join(os.getcwd(), 'input.json')

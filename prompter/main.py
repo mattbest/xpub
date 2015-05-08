@@ -217,7 +217,7 @@ class Prompter:
     config file.
     
     """
-    def __init__(self, config, verbose=False, testing=False):
+    def __init__(self, config, verbose=False, testing=False, required=False):
         """
         Initializes a Prompter given a path to a resource config file.
 
@@ -236,7 +236,13 @@ class Prompter:
 
         # try initializing prompt dicts from loaded resource config file
         try:
-            self.prompts = [Prompt(p) for p in config['prompts']]
+            if required:                    # only include required prompts
+                self.prompts = [Prompt(p) for p in config['prompts'] 
+                                                    if p['require']]
+
+            else:                           # include all prompts
+                self.prompts = [Prompt(p) for p in config['prompts']]
+
         except ValueError, KeyError:
             err = "\nError initializing prompt dicts in {} config!\n"
             print err.format(config['key'])

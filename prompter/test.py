@@ -1,4 +1,5 @@
 import os
+import json
 from nose.tools import raises
 from .main import Prompt, Prompter
 
@@ -182,6 +183,13 @@ def test_to_number_err():
     prompt = Prompt(d)
     prompt.to_number('foo')
 
+
+# load resource configuration file for the prompter
+d = os.path.dirname(os.path.realpath(__file__))
+local_config_path = os.path.join(d, '..', 'config')
+CONFIG_DIR = os.environ.get('XROMM_CONFIG', local_config_path)
+study_config = json.load(open(os.path.join(CONFIG_DIR, 'study.json')))
+
 def test_prompter():
     '''
     Testing a Prompter instance.
@@ -205,8 +213,6 @@ def test_prompter():
         },
 
     '''
-    import json
-
     # this is the expected result based on the example inputs specified 
     # in our `study.json` config file
     expected = {
@@ -223,13 +229,50 @@ def test_prompter():
         "resource": "study"
     }
 
-    # load resource configuration file for the prompter
-    d = os.path.dirname(os.path.realpath(__file__))
-    local_config_path = os.path.join(d, '..', 'config')
-    CONFIG_DIR = os.environ.get('XROMM_CONFIG', local_config_path)
-    config = json.load(open(os.path.join(CONFIG_DIR, 'study.json')))
+    prompt = Prompter(study_config, testing=True)
+    prompt()
+    assert prompt.results == expected
 
-    prompt = Prompter(config, testing=True)
+def test_prompter_required():
+    '''
+    Testing a Prompter instance for required prompts.
+
+    Here we're initializing a Prompter the `required=True`, 
+    which means we only want to be prompted for required prompts:
+
+        Prompter(study_config, testing=True, required=True)
+
+    Since the `notes` prompt in `$XROMM_CONFIG/study.json` is not
+    required, the example value should not be included in the
+    resulting `data` dict:
+
+        {   
+            "key": "notes",
+            "text": "Additional notes or comments?",
+            "require": false,
+            ...
+        }
+
+    Compare `expected` below with that from the test above, which
+    does in include an example value for `notes`.
+
+    '''
+    # this is the expected result based on the example inputs specified 
+    # in our `study.json` config file
+    expected = {
+        "data": {
+            "name": "pig-chewing-study", 
+            "data_public": False, 
+            "meta_public": True, 
+            "pi": "Callum Ross", 
+            "leader": "Kazutaka Takashi", 
+            "desc": "A study that looks at how pigs chew stuff."
+        }, 
+        "version": "0.0.1", 
+        "resource": "study"
+    }
+
+    prompt = Prompter(study_config, testing=True, required=True)
     prompt()
     print prompt.results
     assert prompt.results == expected
