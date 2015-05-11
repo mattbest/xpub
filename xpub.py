@@ -22,6 +22,8 @@ import json
 import argparse
 from datetime import datetime
 from prompter import Prompt, Prompter
+from mediatype import get_mediatype
+from action import prompt_for_action
 
 # set config dir based on $XROMM_CONFIG env variable if present
 # otherwise look for a `config` dir in current working dir
@@ -64,6 +66,7 @@ cache_path  = os.path.join(CONFIG_DIR, 'cache.json')    # cached info
 config = json.load(open(config_path))   # load resource config file
 cache = json.load(open(cache_path))     # load cached study/trial options
 
+
 # supplement config with cached info if out of date
 if config['updated_at'] < cache['updated_at']:
 
@@ -72,18 +75,20 @@ if config['updated_at'] < cache['updated_at']:
         # first prompt should be for name of study
         config['prompts'][0]['options'] = cache['studies'].keys()
 
-    # if transferring a file, add cached trial names 
+    # if transferring a file, add cached study/trial names 
     elif config['key'] == 'file':
-        # first prompt should be for name of trial
-        config['prompts'][0]['options'] = cache['trials'].keys()
+        # first prompt should be for name of study/trial
+        options = []
+        for study in cache['studies'].keys():
+            options.append(study)
+            for trial in cache['studies'][study]:
+                options.append('{}/{}'.format(study, trial))
+        config['prompts'][0]['options'] = options
 
 
 prompt = Prompter(config, verbose=args.verbose,
                           required=args.required)   # initialize a prompter
 prompt()                                            # prompt for input
-
-
-# ok . . . with input collected, what should be done with it?
 
 
 # save/update a json config file (at `path`) with config `data`
@@ -92,75 +97,20 @@ def save_json(data, path):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4)
 
-
-# possible actions to take with collected input  . . .
-
-def view(results): 
-    print json.dumps(results, indent=4)
-
-def save(results):                              
-    path = os.path.join(os.getcwd(), 'input.json')
-    save_json(results, path)
-    print "input saved to", path
-
-def send(results): 
-    path = 'study/'
-    r = results['resource']
-    if r is 'trial':
-        path += results['study'] + '/trial/'
-    version = results['version']
-    url = 'http://xromm.rcc.uchicago/api/v{}/{}'.format(version, path)
-    # url = "http://httpbin.org/post"
-    print "sending results to", url
-    '''
-    resp = requests.post(url, data=results)
-    print(resp.text)
-    '''
-
-def quit(results): 
-    raise SystemExit
-
-# dict of possible action choices (keys) and action functions (values)
-actions = {
-    "view": view,
-    "save": save,
-    "send": send,
-    "quit": quit
-}
-
-# prompt configuration, to prompt for an action
-action_config = {  
-    "key": "action",
-    "text": "What to do with the collected metadata?",
-    "info": "What do you want to do with these inputs?",
-    "type": "list",
-    "options": [
-        "view (look it over before doing anything else)",
-        "save (save it to a file)",
-        "send (send it off to the `xromm` server)",
-        "quit (just discard it and try again)"
-    ],
-    "example": "quit (just discard it and try again)",
-    "require": True,
-    "store": [],
-    "regex": ""
-}
-
-prompt_for_action = Prompt(action_config)       # create prompt based on config
-input = prompt_for_action(fixed=True)           # prompt for input
-choice = input.split(' ')[0]                    # get action from input
-actions[choice](prompt.results)                 # do the chosen action
+# ok . . . with input collected, what should be done with it?
+prompt_for_action(prompt.results)               # view/save/send/discard results?
 
 if prompt.config_revisions:                     # if new input was seen ...
     save_json(prompt.config, config_path)       # update config
 
-# if new trial or study was created ...
-if args.study:
+# cache new study/trial names
+if args.study:                                  # if study was created ...
     name = prompt.results['data']['name']       # name entered when prompted
     if not name in cache['studies']:
         cache['studies'][name] = []
         save_json(cache, cache_path)            # update cache
-elif args.trial:
+
+elif args.trial:                                # if trial was created ...
     study = prompt.results['data']['study']     # study name entered
     trial = prompt.results['data']['name']      # trial name entered
     if not study in cache['studies']:

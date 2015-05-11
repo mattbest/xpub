@@ -3,29 +3,16 @@
     "version": "0.0.1", 
     "description": "prompts to present when transferring a file", 
     "author": "J. Voigt", 
-    "updated_at": "2015-05-08T12:08:54.219260Z", 
+    "updated_at": "2015-04-08T12:08:54.219260Z", 
     "prompts": [
         {
-            "key": "study", 
-            "info": "Specify the study this file should be associated with.", 
-            "text": "Which study is this file for?",
+            "key": "study_trial", 
+            "info": "Specify the study/trial this file should be associated with.", 
+            "text": "Which study/trial is this file for?",
             "type": "list", 
             "require": true, 
             "options": [], 
-            "example": "pig-chewing-study", 
-            "regex": "", 
-            "store": [
-                "xromm"
-            ]
-        }, 
-        {
-            "key": "trial", 
-            "info": "Specify the trial this file should be associated with.", 
-            "text": "Which trial is this file a part of?",
-            "type": "list", 
-            "require": true, 
-            "options": [], 
-            "example": "trial-1-markerless", 
+            "example": "pig-chewing-study/trial-1", 
             "regex": "", 
             "store": [
                 "xromm"
@@ -33,7 +20,7 @@
         }, 
         {
             "key": "note", 
-            "info": "You can provide an optional note or comment."
+            "info": "You can provide an optional note or comment.",
             "text": "Any additional note or comment to include?",
             "type": "text", 
             "require": false, 
