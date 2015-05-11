@@ -106,6 +106,36 @@
             "store": [
                 "xromm"
             ]
+        },
+        {
+            "info": "Specify the behavior being examined in this trial.", 
+            "regex": "\\w{3}", 
+            "text": "Behavior under examination?", 
+            "require": false, 
+            "options": [
+                "breathing",
+                "feeding",
+                "locomotion"
+            ], 
+            "key": "subject_behavior", 
+            "type": "list", 
+            "example": "feeding", 
+            "store": [
+                "xromm"
+            ]
+        },
+        {
+            "info": "Provide any additional comments.",
+            "regex": "\\w{3}", 
+            "text": "Anything else to note?",
+            "require": false, 
+            "options": [], 
+            "key": "comment", 
+            "type": "text", 
+            "example": "No research assistants were injured.", 
+            "store": [
+                "xromm"
+            ]
         }
     ], 
     "version": "0.0.1", 

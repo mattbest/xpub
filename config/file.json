@@ -1,0 +1,48 @@
+{
+    "key": "file",
+    "version": "0.0.1", 
+    "description": "prompts to present when transferring a file", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-05-08T12:08:54.219260Z", 
+    "prompts": [
+        {
+            "key": "study", 
+            "info": "Specify the study this file should be associated with.", 
+            "text": "Which study is this file for?",
+            "type": "list", 
+            "require": true, 
+            "options": [], 
+            "example": "pig-chewing-study", 
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "key": "trial", 
+            "info": "Specify the trial this file should be associated with.", 
+            "text": "Which trial is this file a part of?",
+            "type": "list", 
+            "require": true, 
+            "options": [], 
+            "example": "trial-1-markerless", 
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "key": "note", 
+            "info": "You can provide an optional note or comment."
+            "text": "Any additional note or comment to include?",
+            "type": "text", 
+            "require": false, 
+            "options": [], 
+            "example": "This is the crucial data file in this study.", 
+            "regex": "\\w{3}", 
+            "store": [
+                "xromm"
+            ]
+        }
+    ]
+}
