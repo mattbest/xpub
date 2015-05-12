@@ -21,9 +21,9 @@ import os
 import json
 import argparse
 from datetime import datetime
-from prompter import Prompt, Prompter
 from mediatype import get_mediatype
-from action import prompt_for_action
+from action import prompt_for_action, save_json
+from prompter import Prompt, Prompter
 
 # set config dir based on $XROMM_CONFIG env variable if present
 # otherwise look for a `config` dir in current working dir
@@ -90,12 +90,6 @@ prompt = Prompter(config, verbose=args.verbose,
                           required=args.required)   # initialize a prompter
 prompt()                                            # prompt for input
 
-
-# save/update a json config file (at `path`) with config `data`
-def save_json(data, path):
-    data['updated_at'] = datetime.now().isoformat() + 'Z'
-    with open(path, 'w') as f:
-        json.dump(data, f, indent=4)
 
 # ok . . . with input collected, what should be done with it?
 prompt_for_action(prompt.results)               # view/save/send/discard results?

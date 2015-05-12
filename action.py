@@ -1,4 +1,6 @@
+import os
 import json
+from datetime import datetime
 from prompter import Prompt
 
 
@@ -56,9 +58,9 @@ config = {
         "view (look it over before doing anything else)",
         "save (save it to a file)",
         "send (send it off to the `xromm` server)",
-        "quit (just discard it and try again)"
+        "quit (just discard it)"
     ],
-    "example": "quit (just discard it and try again)",
+    "example": "quit (just discard it)",
     "require": True,
     "store": [],
     "regex": ""
@@ -72,3 +74,12 @@ def prompt_for_action(results):
     actions[choice](results)                # do the chosen action
     if choice == 'view':
         prompt_for_action(results)          # prompt again
+
+
+if __name__ == '__main__':
+
+    # example results
+    results = dict(resource="trial", study="pig-chewing-study")
+
+    # prompt user to select action to take on results and then do it
+    prompt_for_action(results)
