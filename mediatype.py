@@ -8,13 +8,13 @@ def get_mediatype(testing=False):
         "info": "Specify the mediatype of the file being transferred.",
         "type": "list",
         "options": [
-            "emg (electromyography recording)",
             "cat (CAT scan)",
-            "mov (standard video)",
-            "xray (video, grid, or calibration object)",
+            "emg (electromyography recording)",
+            "xray (xray video, grid, or calibration object)",
+            "video (standard video)",
             "other (none of the above)"
         ],
-        "example": "mov (standard video)",
+        "example": "video (standard video)",
         "require": True,
         "store": [],
         "regex": ""
@@ -29,4 +29,4 @@ if __name__ == '__main__':
 
     # prompt user to select appropriate mediatype
     choice = get_mediatype(testing=True)
-    assert choice == 'mov'                      # given the example
+    assert choice == 'video'                    # given the example

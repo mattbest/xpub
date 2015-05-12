@@ -84,6 +84,7 @@ if config['updated_at'] < cache['updated_at']:
             for trial in cache['studies'][study]:
                 options.append('{}/{}'.format(study, trial))
         config['prompts'][0]['options'] = options
+        t = get_mediatype()
 
 
 prompt = Prompter(config, verbose=args.verbose,
