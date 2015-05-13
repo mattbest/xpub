@@ -46,7 +46,9 @@ class Prompt:
         # ensure prompt dict has all the necessary keys
         for key in 'key text info example require type store'.split(' '):
             if not (key in p):
-                raise KeyError('prompt dict is missing `{}` key!'.format(key))
+                msg = 'prompt dict is missing `{}` key!'.format(key)
+                print p
+                raise KeyError(msg)
 
         # check that values in `store` array are valid
         store_options = ['xromm', 'ross_db']    

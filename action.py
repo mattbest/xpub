@@ -23,11 +23,22 @@ def save(results):
     print "input saved to", path
 
 def send(results): 
-    path = 'study/'
-    r = results['resource']
-    if r is 'trial':
-        path += results['study'] + '/trial/'
+    resource = results['resource']
     version = results['version']
+    path = 'study/'
+
+    if resource.startswith('file'):
+        study_trial  = results['data']['study_trial']
+        if '/' in study_trial:                      # study/trial
+            study, trial = study_trial.split('/')
+            path += '{}/trial/{}/'.format(study, trial)
+        else:
+            study, trial = study_trial, ''          # no trial name
+            path += '{}/'.format(study)
+
+    elif resource is 'trial':
+        path += results['data']['study'] + '/trial/'
+
     url = 'http://xromm.rcc.uchicago/api/v{}/{}'.format(version, path)
     # url = "http://httpbin.org/post"
     print "sending results to", url

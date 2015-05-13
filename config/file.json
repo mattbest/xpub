@@ -17,19 +17,6 @@
             "store": [
                 "xromm"
             ]
-        }, 
-        {
-            "key": "note", 
-            "info": "You can provide an optional note or comment.",
-            "text": "Any additional note or comment to include?",
-            "type": "text", 
-            "require": false, 
-            "options": [], 
-            "example": "This is the crucial data file in this study.", 
-            "regex": "\\w{3}", 
-            "store": [
-                "xromm"
-            ]
         }
     ]
 }

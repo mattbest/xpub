@@ -1,0 +1,180 @@
+{
+    "key": "file_xray",
+    "description": "prompts to present when transferring an xray file", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-05-13T10:40:26.903256Z", 
+    "version": "0.0.1", 
+    "prompts": [
+        {
+            "info": "Specify the study/trial this file should be associated with.", 
+            "regex": "", 
+            "text": "Which study/trial is this file for?", 
+            "require": true, 
+            "example": "pig-chewing-study/trial-1", 
+            "key": "study_trial", 
+            "type": "list", 
+            "options": [
+                "pig-chewing-study", 
+                "pig-chewing-study/trial-1", 
+                "pig-chewing-study/trial-2", 
+                "cow-chewing-study", 
+                "cow-chewing-study/trial-1-markerless", 
+                "cow-chewing-study/trial-2-markers", 
+                "cow-chewing-study/trail-3"
+            ], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the camera number used for this xray.", 
+            "regex": "[1-4]$", 
+            "text": "Camera number? (1 to 4)", 
+            "require": true, 
+            "example": 1, 
+            "key": "camera_number", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the make of the camera used for this xray.", 
+            "regex": "\\w{3}", 
+            "text": "Camera make?", 
+            "require": false, 
+            "example": "Phantom", 
+            "key": "camera_make", 
+            "type": "list", 
+            "options": [
+                "Phantom", 
+                "Photron", 
+                "Kodak"
+            ], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the frame rate in frames per second.", 
+            "regex": "\\d+$", 
+            "text": "Frame rate (FPS)?", 
+            "require": false, 
+            "example": 24, 
+            "key": "frame_rate", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the shutter speed `x` (exposure time) used by the camera expressed as 1/x of a second.", 
+            "regex": "\\d+$", 
+            "text": "Shutter speed?", 
+            "require": false, 
+            "example": 30, 
+            "key": "shutter_speed", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify kiloVoltage (kV) used for this xray.", 
+            "regex": "\\d+$", 
+            "text": "kiloVoltage (kV)?", 
+            "require": false, 
+            "example": 60, 
+            "key": "kilo_voltage", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify milliAmperage (mA) used for this xray.", 
+            "regex": "\\d+$", 
+            "text": "milliAmperage (mA)?", 
+            "require": false, 
+            "example": 15, 
+            "key": "milli_amperage", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the source to image-receptor distance (SID) in centimeters.", 
+            "regex": "\\d+$", 
+            "text": "SID (cm)?", 
+            "require": false, 
+            "example": 100, 
+            "key": "sid_cm", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the magnification level.", 
+            "regex": "[0-5]$", 
+            "text": "Mag level? (0 to 5)", 
+            "require": false, 
+            "example": 2, 
+            "key": "mag_level", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "Specify the radiation type.", 
+            "regex": "", 
+            "text": "Radiation type?", 
+            "require": false, 
+            "example": "pulsed", 
+            "key": "radiation_type", 
+            "type": "list", 
+            "options": [
+                "continuous", 
+                "pulsed"
+            ], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "If radiation type is pulsed, specify the pulse width.", 
+            "regex": "", 
+            "text": "If pulsed, pulse width?", 
+            "require": false, 
+            "example": 5, 
+            "key": "pulse_width", 
+            "type": "number", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }, 
+        {
+            "info": "You can provide an optional note or comment.", 
+            "regex": "\\w{3}", 
+            "text": "Description, note, or comment to include?", 
+            "require": false, 
+            "example": "This is the crucial data file in this study.", 
+            "key": "note", 
+            "type": "text", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }
+    ] 
+}

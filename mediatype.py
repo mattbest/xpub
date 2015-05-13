@@ -8,9 +8,11 @@ def get_mediatype(testing=False):
         "info": "Specify the mediatype of the file being transferred.",
         "type": "list",
         "options": [
-            "cat (CAT scan)",
-            "emg (electromyography recording)",
-            "xray (xray video, grid, or calibration object)",
+            "cat   (CAT scan)",
+            "emg   (electromyography recording)",
+            "xray  (xray video)",
+            "grid  (xray undistortion grid)",
+            "calib (xray calibration object)",
             "video (standard video)",
             "other (none of the above)"
         ],

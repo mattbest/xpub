@@ -56,6 +56,15 @@ elif args.trial:
     resource = 'trial.json'
 elif args.file:
     resource = 'file.json'
+    mt = get_mediatype()    # get config for specific mediatype
+    try:                    # set config for selected mediatype
+        mt_config_path = os.path.join(CONFIG_DIR, 'mediatypes', mt + '.json')
+        if os.path.isfile(mt_config_path):
+            config = json.load(open(mt_config_path))
+            config_path = mt_config_path
+    except NameError:
+        pass                # if not found, use default file prompting
+
 else:
     parser.print_help()
     raise SystemExit
@@ -71,12 +80,12 @@ cache = json.load(open(cache_path))     # load cached study/trial options
 if config['updated_at'] < cache['updated_at']:
 
     # if creating a trial, add cached study names
-    if config['key'] == 'trial':
+    if args.trial:
         # first prompt should be for name of study
         config['prompts'][0]['options'] = cache['studies'].keys()
 
     # if transferring a file, add cached study/trial names 
-    elif config['key'] == 'file':
+    elif args.file:
         # first prompt should be for name of study/trial
         options = []
         for study in cache['studies'].keys():
@@ -84,13 +93,11 @@ if config['updated_at'] < cache['updated_at']:
             for trial in cache['studies'][study]:
                 options.append('{}/{}'.format(study, trial))
         config['prompts'][0]['options'] = options
-        t = get_mediatype()
 
 
 prompt = Prompter(config, verbose=args.verbose,
                           required=args.required)   # initialize a prompter
 prompt()                                            # prompt for input
-
 
 # ok . . . with input collected, what should be done with it?
 prompt_for_action(prompt.results)               # view/save/send/discard results?
