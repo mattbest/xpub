@@ -1,4 +1,4 @@
-{
+
     "description": "prompts to present when creating a new trial", 
     "author": "J. Voigt", 
     "updated_at": "2015-05-11T14:03:09.617744Z", 
@@ -145,6 +145,6 @@
             ]
         }
     ], 
-    "version": "0.0.1", 
+    "version": "1", 
     "key": "trial"
 }

@@ -3,7 +3,7 @@
     "description": "prompts to present when transferring a grid file (i.e., an xray `undistortion grid`)", 
     "author": "J. Voigt", 
     "updated_at": "2015-05-13T10:40:26.903256Z", 
-    "version": "0.0.1", 
+    "version": "1", 
     "prompts": [
         {
             "info": "Specify the study/trial this file should be associated with.", 
@@ -49,8 +49,7 @@
             "type": "list", 
             "options": [
                 "Phantom", 
-                "Photron", 
-                "Kodak"
+                "Photron"
             ], 
             "store": [
                 "xromm"

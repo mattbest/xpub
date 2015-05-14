@@ -2,7 +2,7 @@
     "description": "Cache of study and trial name options.", 
     "author": "J. Voigt", 
     "updated_at": "2015-05-08T11:07:11.819927Z", 
-    "version": "0.0.1", 
+    "version": "1", 
     "key": "cache", 
     "studies": {
         "pig-chewing-study": [

@@ -8,8 +8,9 @@ def get_mediatype(testing=False):
         "info": "Specify the mediatype of the file being transferred.",
         "type": "list",
         "options": [
-            "cat   (CAT scan)",
+            "vol   (3D volume)",
             "emg   (electromyography recording)",
+            "proc  (processed file: `UNDTFORM`, `MDLT`, `MayaCam`)",
             "xray  (xray video)",
             "grid  (xray undistortion grid)",
             "calib (xray calibration object)",

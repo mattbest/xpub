@@ -1,9 +1,9 @@
 {
-    "key": "file",
+    "key": "file_proc",
     "version": "1", 
-    "description": "prompts to present when transferring a file", 
+    "description": "prompts to present when transferring a processed file", 
     "author": "J. Voigt", 
-    "updated_at": "2015-04-08T12:08:54.219260Z", 
+    "updated_at": "2015-04-05T12:08:54.219260Z", 
     "prompts": [
         {
             "key": "study_trial", 
@@ -13,6 +13,23 @@
             "require": true, 
             "options": [], 
             "example": "pig-chewing-study/trial-1", 
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        },
+        {
+            "key": "file_type", 
+            "info": "Specify the particular type of processed file this is.",
+            "text": "Type of processed file?",
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "UNDTFORM",
+                "MDLT",
+                "MayaCam"
+            ], 
+            "example": "",
             "regex": "", 
             "store": [
                 "xromm"

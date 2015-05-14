@@ -1,0 +1,67 @@
+{
+    "key": "file_proc",
+    "version": "1", 
+    "description": "prompts to present when transferring a 3D volume file", 
+    "author": "J. Voigt", 
+    "updated_at": "2015-04-05T12:08:54.219260Z", 
+    "prompts": [
+        {
+            "key": "study_trial", 
+            "info": "Specify the study/trial this file should be associated with.", 
+            "text": "Which study/trial is this file for?",
+            "type": "list", 
+            "require": true, 
+            "options": [], 
+            "example": "pig-chewing-study/trial-1", 
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        },
+        {
+            "key": "file_type", 
+            "info": "Specify the particular type of 3D volume this is.",
+            "text": "Type of 3D volume?",
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "CT scan",
+                "mesh model (OBJ)",
+                "mesh model (VRML)",
+                "point cloud",
+                "image stack"
+            ], 
+            "example": "CT scan",
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        },
+        {
+            "key": "subj_name", 
+            "info": "Specify the name of the individual subject this file should be associated with.", 
+            "text": "Subject name?",
+            "type": "list", 
+            "require": true, 
+            "options": [], 
+            "example": "Maxwell", 
+            "regex": "", 
+            "store": [
+                "xromm"
+            ]
+        },
+        {
+            "info": "You can provide an optional note or comment.", 
+            "regex": "\\w{3}", 
+            "text": "Description, note, or comment to include?", 
+            "require": false, 
+            "example": "This is the crucial data file in this study.", 
+            "key": "note", 
+            "type": "text", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }
+    ]
+}

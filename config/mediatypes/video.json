@@ -1,9 +1,9 @@
 {
-    "key": "file_calib",
-    "version": "1", 
-    "description": "prompts to present when transferring a calibration file (i.e., an xray `calibration object`)", 
+    "key": "file_video",
+    "description": "prompts to present when transferring a video file", 
     "author": "J. Voigt", 
     "updated_at": "2015-05-13T10:40:26.903256Z", 
+    "version": "1", 
     "prompts": [
         {
             "info": "Specify the study/trial this file should be associated with.", 
@@ -27,7 +27,7 @@
             ]
         }, 
         {
-            "info": "Specify the camera number used for this file.", 
+            "info": "Specify the camera number used for this xray.", 
             "regex": "[1-4]$", 
             "text": "Camera number? (1 to 4)", 
             "require": true, 
@@ -40,7 +40,7 @@
             ]
         }, 
         {
-            "info": "Specify the make of the camera used for this file.", 
+            "info": "Specify the make of the camera used for this xray.", 
             "regex": "\\w{3}", 
             "text": "Camera make?", 
             "require": false, 
@@ -56,12 +56,12 @@
             ]
         }, 
         {
-            "info": "Specify the source to image-receptor distance (SID) in centimeters.", 
+            "info": "Specify the frame rate in frames per second.", 
             "regex": "\\d+$", 
-            "text": "SID (cm)?", 
+            "text": "Frame rate (FPS)?", 
             "require": false, 
-            "example": 100, 
-            "key": "sid_cm", 
+            "example": 24, 
+            "key": "frame_rate", 
             "type": "number", 
             "options": [], 
             "store": [
@@ -69,12 +69,12 @@
             ]
         }, 
         {
-            "info": "Specify the magnification level.", 
-            "regex": "[0-5]$", 
-            "text": "Mag level? (0 to 5)", 
+            "info": "Specify the shutter speed `x` (exposure time) used by the camera expressed as 1/x of a second.", 
+            "regex": "\\d+$", 
+            "text": "Shutter speed?", 
             "require": false, 
-            "example": 2, 
-            "key": "mag_level", 
+            "example": 30, 
+            "key": "shutter_speed", 
             "type": "number", 
             "options": [], 
             "store": [

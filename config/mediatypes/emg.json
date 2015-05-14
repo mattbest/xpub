@@ -1,9 +1,9 @@
 {
-    "key": "file",
+    "key": "file_emg",
     "version": "1", 
-    "description": "prompts to present when transferring a file", 
+    "description": "prompts to present when transferring an EMG file", 
     "author": "J. Voigt", 
-    "updated_at": "2015-04-08T12:08:54.219260Z", 
+    "updated_at": "2015-04-05T12:08:54.219260Z", 
     "prompts": [
         {
             "key": "study_trial", 
