@@ -15,9 +15,17 @@
 Since `xpub` is under active development we recommend cloning the source repo
 and running the `setup.py` script in [development mode](https://pythonhosted.org/setuptools/setuptools.html#develop).
 
-    git clone https://github.com/rcc-uchicago/xpub.git
-    cd xpub
-    python setup.py develop
+    > git clone https://github.com/rcc-uchicago/xpub.git
+    > cd xpub
+    > python setup.py develop
+
+This should give you an `xpub` CLI:
+
+    > which xpub
+    /usr/local/bin/xpub
+
+Having installed in developer mode, we only need to update the local repo (with
+`git pull`) in order to update the `xpub` client.
 
 
 ## Rationale
@@ -46,7 +54,7 @@ The metadata attributes for a given resource are collected when the resource is 
 ## Config
 
 The metadata collected about a resource can be specified in `xpub` config
-files (`config/*.json`).  Instead of hard-coding a sequence of user prompts in the CLI itself, the various prompting sequences are specified in a config file for greater flexibility.  Users can thus specify additional attributes for resources as appropriate.  It's even possible for a user to define new "media types" (specific types of files) and their relevant attributes.
+files (`xpub/config/*.json`).  Instead of hard-coding a sequence of user prompts in the CLI itself, the various prompting sequences are specified in a config file for greater flexibility.  Users can thus specify additional attributes for resources as appropriate.  It's even possible for a user to define new "media types" (specific types of files) and their relevant attributes.  See `xpub/config/mediatypes` for examples.
 
 > TODO: give an overview of how to add attributes and new media types to the
 > config file.
