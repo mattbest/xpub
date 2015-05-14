@@ -225,7 +225,7 @@ def test_prompter():
             "leader": "Kazutaka Takashi", 
             "desc": "A study that looks at how pigs chew stuff."
         }, 
-        "version": "0.0.1", 
+        "version": "1", 
         "resource": "study"
     }
 
@@ -268,7 +268,7 @@ def test_prompter_required():
             "leader": "Kazutaka Takashi", 
             "desc": "A study that looks at how pigs chew stuff."
         }, 
-        "version": "0.0.1", 
+        "version": "1", 
         "resource": "study"
     }
 

@@ -1,67 +1,77 @@
 {
-    "key": "file_vol",
-    "version": "1", 
     "description": "prompts to present when transferring a 3D volume file", 
     "author": "J. Voigt", 
-    "updated_at": "2015-04-05T12:08:54.219260Z", 
+    "updated_at": "2015-05-14T15:28:47.004307Z", 
     "prompts": [
         {
-            "key": "study_trial", 
             "info": "Specify the study/trial this file should be associated with.", 
-            "text": "Which study/trial is this file for?",
-            "type": "list", 
-            "require": true, 
-            "options": [], 
-            "example": "pig-chewing-study/trial-1", 
             "regex": "", 
+            "text": "Which study/trial is this file for?", 
+            "require": true, 
+            "example": "pig-chewing-study/trial-1", 
+            "key": "study_trial", 
+            "type": "list", 
+            "options": [
+                "pig-chewing-study", 
+                "pig-chewing-study/trial-1", 
+                "pig-chewing-study/trial-2", 
+                "cow-chewing-study", 
+                "cow-chewing-study/trial-1-markerless", 
+                "cow-chewing-study/trial-2-markers", 
+                "cow-chewing-study/trail-3"
+            ], 
             "store": [
                 "xromm"
             ]
-        },
+        }, 
         {
-            "key": "file_type", 
-            "info": "Specify the particular type of 3D volume this is.",
-            "text": "Type of 3D volume?",
-            "type": "list", 
+            "info": "Specify the particular type of 3D volume this is.", 
+            "regex": "", 
+            "text": "Type of 3D volume?", 
             "require": true, 
+            "example": "CT scan", 
+            "key": "file_type", 
+            "type": "list", 
             "options": [
-                "CT scan",
-                "mesh model (OBJ)",
-                "mesh model (VRML)",
-                "point cloud",
+                "CT scan", 
+                "mesh model (OBJ)", 
+                "mesh model (VRML)", 
+                "point cloud", 
                 "image stack"
             ], 
-            "example": "CT scan",
-            "regex": "", 
             "store": [
                 "xromm"
             ]
-        },
+        }, 
         {
-            "key": "subj_name", 
             "info": "Specify the name of the individual subject this file should be associated with.", 
-            "text": "Subject name?",
-            "type": "list", 
-            "require": true, 
-            "options": [], 
-            "example": "Maxwell", 
             "regex": "", 
+            "text": "Subject name?", 
+            "require": true, 
+            "example": "Maxwell", 
+            "key": "subj_name", 
+            "type": "list", 
+            "options": [
+                "merlin"
+            ], 
             "store": [
                 "xromm"
             ]
-        },
+        }, 
         {
             "info": "You can provide an optional note or comment.", 
             "regex": "\\w{3}", 
             "text": "Description, note, or comment to include?", 
             "require": false, 
-            "example": "This is the crucial data file in this study.", 
+            "options": [], 
             "key": "note", 
             "type": "text", 
-            "options": [], 
+            "example": "This is the crucial data file in this study.", 
             "store": [
                 "xromm"
             ]
         }
-    ]
+    ], 
+    "version": "1", 
+    "key": "file_vol"
 }

@@ -10,6 +10,16 @@
 * collect metadata attributes of the files to be transferred
 
 
+## Install
+
+Since `xpub` is under active development we recommend cloning the source repo
+and running the `setup.py` script in [development mode](https://pythonhosted.org/setuptools/setuptools.html#develop).
+
+    git clone https://github.com/rcc-uchicago/xpub.git
+    cd xpub
+    python setup.py develop
+
+
 ## Rationale
 
 Large file uploads via the `uc-xromm` web interface are time-consuming and

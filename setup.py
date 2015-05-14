@@ -15,6 +15,14 @@ setup(
             'config/*.json', 
             'config/mediatypes/*.json'
         ]
-    }
+    },
+    install_requires=[
+        'requests',
+    ],
+    entry_points = {
+        'console_scripts': ['xpub = xpub.main:run'],
+    },
+    test_suite='nose.collector',
+    tests_require=['nose'],
     zip_safe=False
-    )
+)
