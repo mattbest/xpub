@@ -60,8 +60,7 @@ elif args.file:
     try:                    # set config for selected mediatype
         mt_config_path = os.path.join(CONFIG_DIR, 'mediatypes', mt + '.json')
         if os.path.isfile(mt_config_path):
-            config = json.load(open(mt_config_path))
-            config_path = mt_config_path
+            resource = os.path.join('mediatypes', mt + '.json')
     except NameError:
         pass                # if not found, use default file prompting
 

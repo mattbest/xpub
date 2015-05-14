@@ -1,5 +1,5 @@
 {
-    "key": "file_proc",
+    "key": "file_vol",
     "version": "1", 
     "description": "prompts to present when transferring a 3D volume file", 
     "author": "J. Voigt", 

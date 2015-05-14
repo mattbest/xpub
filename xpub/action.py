@@ -1,5 +1,6 @@
 import os
 import json
+import requests
 from datetime import datetime
 from prompter import Prompt
 
@@ -25,27 +26,28 @@ def save(results):
 def send(results): 
     resource = results['resource']
     version = results['version']
-    path = 'study/'
+    path = 'studies/'
 
     if resource.startswith('file'):
         study_trial  = results['data']['study_trial']
         if '/' in study_trial:                      # study/trial
             study, trial = study_trial.split('/')
-            path += '{}/trial/{}/'.format(study, trial)
+            path += '{}/trials/{}/'.format(study, trial)
         else:
             study, trial = study_trial, ''          # no trial name
             path += '{}/'.format(study)
 
     elif resource is 'trial':
-        path += results['data']['study'] + '/trial/'
+        path += results['data']['study'] + '/trials/'
 
     url = 'http://xromm.rcc.uchicago/api/v{}/{}'.format(version, path)
-    # url = "http://httpbin.org/post"
-    print "sending results to", url
-    '''
-    resp = requests.post(url, data=results)
+    print "sending to", url
+
+    # comment out next two lines when backend service in place!
+    url = "http://httpbin.org/post"     
+    print "\n... actually, we're sending to", url, "for testing purposes!"
+    resp = requests.post(url, data=json.dumps(results))
     print(resp.text)
-    '''
 
 def quit(results): 
     raise SystemExit
