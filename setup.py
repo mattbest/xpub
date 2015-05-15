@@ -8,7 +8,10 @@ setup(
     author='J. Voigt',
     author_email='jvoigt@uchicago.edu',
     license='MIT',
-    packages=['xpub'],
+    packages=[
+        'xpub',
+        'xpub.prompter'
+    ],
     package_data = {
         '': ['*.md', '*.json'],
         'xpub': [
