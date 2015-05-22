@@ -55,7 +55,7 @@ def run():
     group.add_argument('file', nargs='?', help="Transfer a file")
     
     args = parser.parse_args()
-    
+
     if args.study:
         resource = 'study.json'
     elif args.trial:
@@ -105,7 +105,7 @@ def run():
     prompt()                                            # prompt for input
     
     # ok . . . with input collected, what should be done with it?
-    prompt_for_action(prompt.results)               # view/save/send/discard results?
+    prompt_for_action(prompt.results, args.file)    # view/save/send/discard
     
     if prompt.config_revisions:                     # if new input was seen ...
         save_json(prompt.config, config_path)       # update config

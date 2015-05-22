@@ -218,6 +218,13 @@ class Prompt:
             if result == 'Specify other':
                 print("\n{}\n".format(self.text))
                 result = self.get_input()
+                if not result:              # no response given
+                    if self.require:
+                        print("\nResponse required!")
+                        return self.__call__()
+                    else:
+                        return None     # not required
+
             return result
 
         print("Please specify the number of one of the listed options!")

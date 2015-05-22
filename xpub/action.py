@@ -80,7 +80,9 @@ config = {
 }
 
 # results should be 
-def prompt_for_action(results):
+def prompt_for_action(results, path=None):
+    if path:
+        results['file_name'] = os.path.basename(path)
     prompt = Prompt(config)                 # create prompt based on config
     input = prompt(fixed=True)              # prompt for input
     choice = input.split(' ')[0]            # get action from input
