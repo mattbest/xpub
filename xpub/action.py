@@ -79,7 +79,7 @@ config = {
     "regex": ""
 }
 
-# results should be 
+# prompt the user for the action to take on the `results` dict
 def prompt_for_action(results, path=None):
     if path:
         results['file_name'] = os.path.basename(path)
