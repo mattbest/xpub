@@ -53,6 +53,9 @@ def run():
                         action="store_true",
                         help="Create a new trial")
     group.add_argument('file', nargs='?', help="Transfer a file")
+    group.add_argument('--healthrecord', 
+                       action="store_true", 
+                       help="Create a heatlh report in the Hatabase")
     
     args = parser.parse_args()
 
@@ -69,7 +72,8 @@ def run():
                 resource = os.path.join('mediatypes', mt + '.json')
         except NameError:
             pass                # if not found, use default file prompting
-    
+    elif args.healthrecord:
+        resource = 'macaque_health_record.json'
     else:
         parser.print_help()
         raise SystemExit

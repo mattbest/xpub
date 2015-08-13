@@ -51,7 +51,7 @@ class Prompt:
                 raise KeyError(msg)
 
         # check that values in `store` array are valid
-        store_options = ['xromm', 'ross_db']    
+        store_options = ['xromm', 'ross_db', 'hatabase']    
         for s in p['store']:
             if not (s in store_options):
                 msg = 'store={} | '.format(p['store'])
