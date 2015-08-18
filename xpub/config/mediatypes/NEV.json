@@ -1,0 +1,81 @@
+{
+    "key": "file_nev",
+    "version": "1.0.0", 
+    "description": "prompts to present when transferring an NEV file", 
+    "author": "M. Best", 
+    "updated_at": "2015-08-18", 
+    "prompts": [
+        {
+            "key": "study_trial", 
+            "info": "Specify the study/trial this file should be associated with.", 
+            "text": "Which study/trial is this file for?",
+            "type": "list", 
+            "require": true, 
+            "options": [], 
+            "example": "pig-chewing-study/trial-1", 
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
+        {
+            "key": "daq",
+            "info": "Which data acquisition system was used to create this recording?", 
+            "text": "which data acquisition system was used to create this recording?", 
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "Cerebus 1", "Cerebus 2", "Cerebus 3", "Nexus Grapevine"
+            ], 
+            "example": "",
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
+        {
+            "key": "connector",
+            "info": "Which type of connector was used to create this recording?", 
+            "text": "which type of connector was used to create this recording?", 
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "Cereplex-E", "Cereport Filament", "Cereport Pin", "Omnetics"
+            ], 
+            "example": "",
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
+        {
+            "key": "anatAreaRecorded",
+            "info": "From which anatomical area was this recording?", 
+            "text": "From which anatomical area was this recording?", 
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "MI", "PMd", "PMv", "SI", "PFC", "MIo", "MIm", "MIl", "MIr", "MIc"
+            ], 
+            "example": "",
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
+
+        {
+            "info": "You can provide an optional note or comment.", 
+            "regex": "\\w{3}", 
+            "text": "Description, note, or comment to include?", 
+            "require": false, 
+            "example": "This is the crucial data file in this study.", 
+            "key": "note", 
+            "type": "text", 
+            "options": [], 
+            "store": [
+                "xromm"
+            ]
+        }
+    ]
+}
