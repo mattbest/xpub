@@ -63,6 +63,36 @@
                 "xromm", "hatabase"
             ]
         },
+        {
+            "key": "sampling_rate",
+            "info": "What was the sampling rate of this recording?", 
+            "text": "What was the sampling rate of this recording?", 
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "500 Hz", "1 kHz", "2 kHz", "10 kHz", "30 kHz"
+            ], 
+            "example": "",
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
+        {
+            "key": "filter_setting",
+            "info": "What filter settings were used?", 
+            "text": "What filter settings were used?", 
+            "type": "list", 
+            "require": true, 
+            "options": [
+                "none", "LP 250", "LFP wide", "LFP xwide", "LFP narrow"
+            ], 
+            "example": "",
+            "regex": "", 
+            "store": [
+                "xromm", "hatabase"
+            ]
+        },
 
         {
             "info": "You can provide an optional note or comment.", 

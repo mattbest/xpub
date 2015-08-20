@@ -1,20 +1,21 @@
 {
     "description": "prompts to present when creating a new trial", 
     "author": "J. Voigt", 
-    "updated_at": "2015-05-11T14:03:09.617744Z", 
+    "updated_at": "2015-08-18T17:02:37.739911Z", 
     "prompts": [
         {
             "info": "What is the study this trial is to be associated with?", 
             "regex": "\\w{3}", 
             "text": "Study for which this is a trial?", 
             "require": true, 
-            "example": "pig-chewing-study", 
-            "key": "study", 
-            "type": "list", 
             "options": [
                 "pig-chewing-study", 
-                "cow-chewing-study"
+                "cow-chewing-study", 
+                "new mediatype test study"
             ], 
+            "key": "study", 
+            "type": "list", 
+            "example": "pig-chewing-study", 
             "store": [
                 "xromm"
             ]
@@ -24,10 +25,10 @@
             "regex": "\\w{3}", 
             "text": "Name of trial?", 
             "require": true, 
-            "example": "markers_1", 
+            "options": [], 
             "key": "name", 
             "type": "text", 
-            "options": [], 
+            "example": "markers_1", 
             "store": [
                 "xromm"
             ]
@@ -37,10 +38,10 @@
             "regex": "\\w{3}", 
             "text": "Description of trial?", 
             "require": false, 
-            "example": "Initial trial using markers.", 
+            "options": [], 
             "key": "desc", 
             "type": "text", 
-            "options": [], 
+            "example": "Initial trial using markers.", 
             "store": [
                 "xromm"
             ]
@@ -50,10 +51,10 @@
             "regex": "", 
             "text": "Date of trial?", 
             "require": true, 
-            "example": "2015-04-28", 
+            "options": [], 
             "key": "date", 
             "type": "date", 
-            "options": [], 
+            "example": "2015-04-28", 
             "store": [
                 "xromm"
             ]
@@ -63,10 +64,10 @@
             "regex": "\\w?", 
             "text": "Additional notes or comments? (hit return for none)", 
             "require": false, 
-            "example": "Ten markers were used in this trial for motion tracking.", 
+            "options": [], 
             "key": "notes", 
             "type": "text", 
-            "options": [], 
+            "example": "Ten markers were used in this trial for motion tracking.", 
             "store": [
                 "xromm"
             ]
@@ -76,12 +77,12 @@
             "regex": "\\w{3}", 
             "text": "Name of research subject?", 
             "require": false, 
-            "example": "maxwell", 
-            "key": "subject_name", 
-            "type": "list", 
             "options": [
                 "marvin"
             ], 
+            "key": "subject_name", 
+            "type": "list", 
+            "example": "maxwell", 
             "store": [
                 "xromm"
             ]
@@ -91,12 +92,12 @@
             "regex": "\\w{3}", 
             "text": "Genus/species of research subject?", 
             "require": false, 
-            "example": "gallus domesticus", 
-            "key": "subject_genus_species", 
-            "type": "list", 
             "options": [
                 "monkey"
             ], 
+            "key": "subject_genus_species", 
+            "type": "list", 
+            "example": "gallus domesticus", 
             "store": [
                 "xromm"
             ]
@@ -106,10 +107,10 @@
             "regex": "", 
             "text": "Weight of research subject in grams?", 
             "require": false, 
-            "example": "300", 
+            "options": [], 
             "key": "subject_grams", 
             "type": "number", 
-            "options": [], 
+            "example": "300", 
             "store": [
                 "xromm"
             ]
@@ -119,14 +120,14 @@
             "regex": "\\w{3}", 
             "text": "Behavior under examination?", 
             "require": false, 
-            "example": "feeding", 
-            "key": "subject_behavior", 
-            "type": "list", 
             "options": [
                 "breathing", 
                 "feeding", 
                 "locomotion"
             ], 
+            "key": "subject_behavior", 
+            "type": "list", 
+            "example": "feeding", 
             "store": [
                 "xromm"
             ]
@@ -136,10 +137,10 @@
             "regex": "\\w{3}", 
             "text": "Anything else to note?", 
             "require": false, 
-            "example": "No research assistants were injured.", 
+            "options": [], 
             "key": "comment", 
             "type": "text", 
-            "options": [], 
+            "example": "No research assistants were injured.", 
             "store": [
                 "xromm"
             ]

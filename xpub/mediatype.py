@@ -15,6 +15,8 @@ def get_mediatype(testing=False):
             "grid  (xray undistortion grid)",
             "calib (xray calibration object)",
             "video (standard video)",
+            "NEV   (neural spiking data)",
+            "NSx   (neural continuous data)",
             "other (none of the above)"
         ],
         "example": "video (standard video)",
