@@ -56,5 +56,52 @@ The metadata attributes for a given resource are collected when the resource is 
 The metadata collected about a resource can be specified in `xpub` config
 files (`xpub/config/*.json`).  Instead of hard-coding a sequence of user prompts in the CLI itself, the various prompting sequences are specified in a config file for greater flexibility.  Users can thus specify additional attributes for resources as appropriate.  It's even possible for a user to define new "media types" (specific types of files) and their relevant attributes.  See `xpub/config/mediatypes` for examples.
 
-> TODO: give an overview of how to add attributes and new media types to the
-> config file.
+
+#### How to add attributes to a config file
+
+In order to add a new attribute to an existing configation file, open an existing config file in a text editor (e.g. vim) and add an object with the following key-value pairs to the prompts array:
+
+    "key"     - key name used when sending the captured input value
+    "text"    - text presented when prompting for input
+    "info"    - additional information presented when called with `--verbose` switch
+    "example" - example input (used in testing)
+    "require" - True if input is required in XMA portal, False otherwise
+    "type"    - indicates the type of prompt
+    "store"   - array of backend persistence targets (use "xromm" to target the XMA portal)
+    "regex"   - optional regular expression pattern to validate input
+
+The value of `type` should be a string indicating the type of the input value expected.  The type options are ...
+
+    TYPE     - EXPECTED INPUT VALUE
+    'bool'   - boolean value (to prompt for `yes` or `no` input)
+    'date'   - a date with the format `YYYY-MM-DD` (e.g. 2015-08-26)
+    'text'   - open-ended string
+    'list'   - a value from a fixed list of enumerated options or a user specified string
+    'number' - a numeric value
+
+If the `type` is a `list` then an additional key, `options`, should be included. `options` is an array of strings specifying the default options in the list. 
+
+
+#### How to specify new mediatypes
+
+Specifying a new mediatype is much like modifying an exisiting configuration file.  Begin by creating a new `.json` file in a text editor.  Create an object with the following key-value pairs:
+
+    "description" - a string describing the mediatype
+    "author"      - string specifying the creator of the mediatype config file
+    "updated_at"  - string specifying when the file was last modified in form YYYY-MM-DD
+    "prompts"     - array of config attribute objects 
+    "version"     - string specifying the version of the configuration file
+    "key"         - string specifying the key name used to identify this mediatype
+
+#### Description of existing mediatypes
+In addition to creating studies and trials, xpub can also record metadata about specified mediatypes.  Here, a mediatype is a specific type of file or set of filetypes associated with a particular type of data.  Presently, the following mediatypes have been defined: 
+
+* vol (3D volume) 
+* emg (electromyography recording)
+* proc (processed file: 'UNDTFORM', 'MDLT', 'MayaCam')
+* xray (xray video)
+* grid (xray undistortion grid)
+* calib (xray calibration object)
+* video (standard video)
+* NEV (event-based neural data)
+* NSx (continuous neural data)
