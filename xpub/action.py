@@ -36,11 +36,12 @@ def save(results):
         os.system('pause')                          #allows message reading (Windows/cygwin)
 
 def transferfile(results):
-    file_path = results['file_abs_path']
-    save_json(results, file_path)
+    src_file_path = results['file_abs_path']
+    dest_file_path = "~/example-copy"
+    save_json(results, src_file_path)
     auth = get_access_token()
-    src = "rwilliams#rwilliams01"     # source endpoint
-    dst = "jvoigt#midway-transfers"   # destination endpoint
+    src = "mattbest#NICHO-LENO5"     # source endpoint
+    dst = "mattbest#Oba-Nicho5-Dell"   # destination endpoint
     # authenticate using access token
     api = api_client.TransferAPIClient(
         username=auth.username,
@@ -55,7 +56,7 @@ def transferfile(results):
     # designate endpoints(1) and items(2) for transfer(3)
     def transfer(id, source, dest):
         t = Transfer(id, source, dest)
-        t.add_item(file_path, file_path)
+        t.add_item(src_file_path, dest_file_path)
         status, reason, result = api.transfer(t)
         os._exit(1)
     ### SCHEDULE TRANSFER JOB ###
